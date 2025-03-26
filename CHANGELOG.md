@@ -183,4 +183,77 @@ and this project adheres to [Keep a Changelog]: https://github.com/Nanaimo2013/j
 [Unreleased]
 [0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
 [0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0: https://github.com/Nanaimo2013/jmframework-vscode/releases/tag/v0.3.0
+
+## [0.6.0] - 2025-03-25
+
+### Added
+- Comprehensive error checking and validation for all JMF file types
+  - JMF files: Missing required sections, invalid property declarations, unclosed blocks
+  - JMCSS files: Invalid variable declarations, color value validation
+  - JMHTML files: Unclosed HTML tags detection
+  - JMConfig files: JSON structure validation, required config sections
+  - JMTemplate files: Unclosed template expressions, parameter validation
+  - JMModule files: Export name validation, circular dependency detection
+- Enhanced hover tooltips with detailed documentation for:
+  - Component keywords and properties
+  - Style variables and mixins
+  - HTML tags and attributes
+  - Config options and paths
+  - Template expressions and parameters
+  - Module exports and imports
+- Real-time diagnostics updates on document changes and opens
+- Modern Adobe-style icons for all JMF file types
+- Improved folder icons for components, templates, styles, and modules
+
+### Changed
+- Updated syntax highlighting for better readability
+- Enhanced error messages with more descriptive information
+- Improved icon theme organization and consistency
+- Refactored diagnostics provider for better performance
+- Updated hover provider to provide more context-aware information
+
+### Fixed
+- Icon display issues in dark and light themes
+- Syntax highlighting color inconsistencies
+- Hover tooltip formatting and content
+- Error detection accuracy for various file types
+
+### Technical
+- Added comprehensive error checking in diagnostics provider
+- Implemented real-time document change monitoring
+- Enhanced hover provider with framework integration
+- Improved icon theme configuration
+- Added support for all JMF file types in diagnostics and hover providers
+
+[Unreleased]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...HEAD
+[Keep a Changelog]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vKeep a Changelog...v0.5.0
+[Semantic Versioning]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vSemantic Versioning...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.4.0
+[Keep a Changelog]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vKeep a Changelog...v0.5.0
+[Semantic Versioning]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vSemantic Versioning...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.3.1
+[Keep a Changelog]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vKeep a Changelog...v0.5.0
+[Semantic Versioning]: https://github.com/Nanaimo2013/jmframework-vscode/compare/vSemantic Versioning...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
+[0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0
+[Unreleased]
+[0.4.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.4.0...v0.5.0
+[0.3.1]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.1...v0.5.0
 [0.3.0]: https://github.com/Nanaimo2013/jmframework-vscode/compare/v0.3.0...v0.5.0: https://github.com/Nanaimo2013/jmframework-vscode/releases/tag/v0.3.0 

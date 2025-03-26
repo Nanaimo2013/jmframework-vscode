@@ -2,7 +2,7 @@
   "name": "jmframework-vscode",
   "displayName": "JMFramework for VS Code",
   "description": "Official VS Code extension for JMFramework with syntax highlighting, snippets, and development tools",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "publisher": "JMFramework",
   "private": false,
   "icon": "icons/jmf-logo.png",
