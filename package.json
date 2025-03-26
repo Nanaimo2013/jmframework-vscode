@@ -2,18 +2,39 @@
   "name": "jmframework-vscode",
   "displayName": "JMFramework for VS Code",
   "description": "Official VS Code extension for JMFramework with syntax highlighting, snippets, and development tools",
-  "version": "0.3.0",
-  "publisher": "jmframework",
-  "preview": true,
+  "version": "0.5.0",
+  "publisher": "JMFramework",
+  "private": false,
   "icon": "icons/jmf-logo.png",
+  "main": "out/extension/extension.js",
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
     "Programming Languages",
     "Snippets",
-    "Themes"
+    "Themes",
+    "Other"
   ],
+  "keywords": [
+    "jmframework",
+    "jmf",
+    "web",
+    "components",
+    "css",
+    "html",
+    "templates",
+    "snippets",
+    "examples"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nanaimo2013/jmframework-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nanaimo2013/jmframework-vscode/issues"
+  },
+  "homepage": "https://github.com/Nanaimo2013/jmframework-vscode#readme",
   "activationEvents": [
     "onLanguage:jmf",
     "onLanguage:jmcss",
@@ -21,44 +42,77 @@
     "onLanguage:jmconfig",
     "onLanguage:jmtemplate",
     "onLanguage:jmmodule",
-    "onCommand:jmframework.compile"
+    "onCommand:jmframework.compile",
+    "onCommand:jmframework.preview",
+    "onCommand:jmframework.debug",
+    "onCommand:jmframework.watch"
   ],
   "contributes": {
     "languages": [
       {
         "id": "jmf",
-        "aliases": ["JMFramework", "jmf"],
-        "extensions": [".jmf"],
+        "aliases": [
+          "JMFramework",
+          "jmf"
+        ],
+        "extensions": [
+          ".jmf"
+        ],
         "configuration": "./language-configuration/jmf.json"
       },
       {
         "id": "jmcss",
-        "aliases": ["JMF CSS", "jmcss"],
-        "extensions": [".jmcss"],
+        "aliases": [
+          "JMF CSS",
+          "jmcss"
+        ],
+        "extensions": [
+          ".jmcss"
+        ],
         "configuration": "./language-configuration/jmcss.json"
       },
       {
         "id": "jmhtml",
-        "aliases": ["JMF HTML", "jmhtml"],
-        "extensions": [".jmhtml"],
+        "aliases": [
+          "JMF HTML",
+          "jmhtml"
+        ],
+        "extensions": [
+          ".jmhtml"
+        ],
         "configuration": "./language-configuration/jmhtml.json"
       },
       {
         "id": "jmconfig",
-        "aliases": ["JMF Config", "jmconfig"],
-        "extensions": [".jmconfig"],
+        "aliases": [
+          "JMF Config",
+          "jmconfig"
+        ],
+        "extensions": [
+          ".jmconfig"
+        ],
         "configuration": "./language-configuration/jmconfig.json"
       },
       {
         "id": "jmtemplate",
-        "aliases": ["JMF Template", "jmtemplate"],
-        "extensions": [".jmtemplate"],
+        "aliases": [
+          "JMF Template",
+          "jmtemplate"
+        ],
+        "extensions": [
+          ".jmtemplate"
+        ],
         "configuration": "./language-configuration/jmtemplate.json"
       },
       {
         "id": "jmmodule",
-        "aliases": ["JMF Module", "jmmodule"],
-        "extensions": [".jmmodule"],
+        "aliases": [
+          "JMF Module",
+          "jmmodule"
+        ],
+        "extensions": [
+          ".jmmodule"
+        ],
         "configuration": "./language-configuration/jmmodule.json"
       }
     ],
@@ -94,6 +148,18 @@
         "path": "./syntaxes/jmmodule.tmLanguage.json"
       }
     ],
+    "themes": [
+      {
+        "label": "JMFramework Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/jmf-theme.json"
+      },
+      {
+        "label": "JMFramework Light",
+        "uiTheme": "vs",
+        "path": "./themes/jmf-light-theme.json"
+      }
+    ],
     "iconThemes": [
       {
         "id": "jmframework-icons",
@@ -101,139 +167,151 @@
         "path": "./fileicons/jmframework-icon-theme.json"
       }
     ],
-    "snippets": [
+    "commands": [
       {
-        "language": "jmf",
-        "path": "./snippets/jmf.json"
+        "command": "jmframework.compile",
+        "title": "JMF: Compile",
+        "category": "JMFramework"
       },
       {
-        "language": "jmcss",
-        "path": "./snippets/jmcss.json"
+        "command": "jmframework.preview",
+        "title": "JMF: Preview",
+        "category": "JMFramework"
       },
       {
-        "language": "jmhtml",
-        "path": "./snippets/jmhtml.json"
+        "command": "jmframework.debug",
+        "title": "JMF: Debug",
+        "category": "JMFramework"
       },
       {
-        "language": "jmconfig",
-        "path": "./snippets/jmconfig.json"
-      },
-      {
-        "language": "jmtemplate",
-        "path": "./snippets/jmtemplate.json"
-      },
-      {
-        "language": "jmmodule",
-        "path": "./snippets/jmmodule.json"
+        "command": "jmframework.watch",
+        "title": "JMF: Watch",
+        "category": "JMFramework"
       }
     ],
     "configuration": {
       "title": "JMFramework",
       "properties": {
-        "jmframework.validate.enable": {
+        "jmframework.enableHover": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable JMFramework validation"
+          "description": "Enable hover information for JMF keywords and directives"
         },
-        "jmframework.format.enable": {
+        "jmframework.enableFormatting": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable JMFramework formatting"
+          "description": "Enable code formatting for JMF files"
         },
-        "jmframework.icons.enable": {
+        "jmframework.enableValidation": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable JMFramework file icons"
+          "description": "Enable code validation for JMF files"
         },
-        "jmframework.cli.path": {
+        "jmframework.frameworkPath": {
           "type": "string",
           "default": "",
-          "description": "Path to JMFramework CLI executable"
+          "description": "Path to the JMF framework installation. If empty, will look in node_modules"
         },
-        "jmframework.autoUpdate": {
-          "type": "boolean",
-          "default": true,
-          "description": "Automatically check for updates"
+        "jmframework.frameworkVersion": {
+          "type": "string",
+          "default": "latest",
+          "description": "Version of the JMF framework to use"
+        },
+        "jmframework.previewPort": {
+          "type": "number",
+          "default": 3000,
+          "description": "Port to use for the preview server"
         }
       }
     },
-    "commands": [
-      {
-        "command": "jmframework.newProject",
-        "title": "JMFramework: Create New Project"
-      },
-      {
-        "command": "jmframework.compile",
-        "title": "JMFramework: Compile Current File"
-      },
-      {
-        "command": "jmframework.runProject",
-        "title": "JMFramework: Run Current Project"
-      },
-      {
-        "command": "jmframework.generateComponent",
-        "title": "JMFramework: Generate Component"
-      }
-    ],
     "menus": {
       "explorer/context": [
         {
-          "when": "resourceExtname == .jmf",
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
           "command": "jmframework.compile",
-          "group": "jmframework"
+          "group": "jmf@1"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.preview",
+          "group": "jmf@2"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.watch",
+          "group": "jmf@3"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.debug",
+          "group": "jmf@4"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.compile",
+          "group": "jmf@1"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.preview",
+          "group": "jmf@2"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.watch",
+          "group": "jmf@3"
+        },
+        {
+          "when": "resourceExtname =~ /\\.(jmf|jmcss|jmhtml|jmconfig|jmtemplate|jmmodule)$/",
+          "command": "jmframework.debug",
+          "group": "jmf@4"
         }
       ]
     }
   },
-  "main": "out/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "node --max-old-space-size=4096 ./node_modules/typescript/bin/tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "package": "vsce package",
-    "publish": "vsce publish"
+    "publish": "node scripts/publish.js",
+    "update-version": "node tools/update-version.js",
+    "clean": "rimraf out tsconfig.tsbuildinfo",
+    "precompile": "npm run clean",
+    "release": "node tools/release.js",
+    "release:patch": "node tools/release.js patch",
+    "release:minor": "node tools/release.js minor",
+    "release:major": "node tools/release.js major"
   },
   "devDependencies": {
-    "@types/vscode": "^1.60.0",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.2.2",
     "@types/node": "14.x",
-    "eslint": "^7.27.0",
+    "@types/vscode": "^1.60.0",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "eslint": "^7.27.0",
     "glob": "^7.1.7",
     "mocha": "^8.4.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.3.2",
-    "vscode-test": "^1.5.2",
-    "vsce": "^2.15.0"
+    "vsce": "^2.15.0",
+    "@types/chokidar": "^2.1.3"
   },
   "dependencies": {
     "vscode-languageclient": "^7.0.0",
     "vscode-languageserver": "^7.0.0",
-    "vscode-languageserver-textdocument": "^1.0.1"
+    "vscode-languageserver-textdocument": "^1.0.1",
+    "commander": "^8.3.0",
+    "chokidar": "^3.5.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Nanaimo2013/jmframework-vscode.git"
-  },
-  "homepage": "https://github.com/Nanaimo2013/jmframework-vscode",
-  "bugs": {
-    "url": "https://github.com/Nanaimo2013/jmframework-vscode/issues"
-  },
-  "keywords": [
-    "jmframework",
-    "web development",
-    "component",
-    "syntax highlighting",
-    "snippets",
-    "file icons",
-    "template language",
-    "front-end",
-    "ui framework"
-  ],
   "author": {
     "name": "JMFramework Team",
     "email": "info@jmframework.dev"
@@ -244,5 +322,8 @@
       "url": "https://github.com/Nanaimo2013"
     }
   ],
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "bin": {
+    "jmf": "./out/tools/cli/jmf.js"
+  }
+}

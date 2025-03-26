@@ -1,118 +1,58 @@
 {
   "iconDefinitions": {
-    "_jmf": {
-      "iconPath": "../icons/jmf-icon-dark.svg"
-    },
-    "_jmf_light": {
-      "iconPath": "../icons/jmf-icon-light.svg"
-    },
-    "_jmcss": {
-      "iconPath": "../icons/jmcss-icon-dark.svg"
-    },
-    "_jmcss_light": {
-      "iconPath": "../icons/jmcss-icon-light.svg"
-    },
-    "_jmhtml": {
-      "iconPath": "../icons/jmhtml-icon-dark.svg"
-    },
-    "_jmhtml_light": {
-      "iconPath": "../icons/jmhtml-icon-light.svg"
-    },
-    "_jmconfig": {
-      "iconPath": "../icons/jmconfig-icon-dark.svg"
-    },
-    "_jmconfig_light": {
-      "iconPath": "../icons/jmconfig-icon-light.svg"
-    },
-    "_jmtemplate": {
-      "iconPath": "../icons/jmtemplate-icon-dark.svg"
-    },
-    "_jmtemplate_light": {
-      "iconPath": "../icons/jmtemplate-icon-light.svg"
-    },
-    "_jmmodule": {
-      "iconPath": "../icons/jmmodule-icon-dark.svg"
-    },
-    "_jmmodule_light": {
-      "iconPath": "../icons/jmmodule-icon-light.svg"
-    },
-    "_folder_jmf": {
-      "iconPath": "../icons/folder-jmf-dark.svg"
-    },
-    "_folder_jmf_light": {
-      "iconPath": "../icons/folder-jmf-light.svg"
-    },
-    "_folder_jmf_open": {
-      "iconPath": "../icons/folder-jmf-open-dark.svg"
-    },
-    "_folder_jmf_open_light": {
-      "iconPath": "../icons/folder-jmf-open-light.svg"
-    },
-    "_folder_components": {
-      "iconPath": "../icons/folder-components-dark.svg"
-    },
-    "_folder_components_light": {
-      "iconPath": "../icons/folder-components-light.svg"
-    },
-    "_folder_components_open": {
-      "iconPath": "../icons/folder-components-open-dark.svg"
-    },
-    "_folder_components_open_light": {
-      "iconPath": "../icons/folder-components-open-light.svg"
-    },
-    "_folder_templates": {
-      "iconPath": "../icons/folder-templates-dark.svg"
-    },
-    "_folder_templates_light": {
-      "iconPath": "../icons/folder-templates-light.svg"
-    },
-    "_folder_templates_open": {
-      "iconPath": "../icons/folder-templates-open-dark.svg"
-    },
-    "_folder_templates_open_light": {
-      "iconPath": "../icons/folder-templates-open-light.svg"
-    },
-    "_folder_styles": {
-      "iconPath": "../icons/folder-styles-dark.svg"
-    },
-    "_folder_styles_light": {
-      "iconPath": "../icons/folder-styles-light.svg"
-    },
-    "_folder_styles_open": {
-      "iconPath": "../icons/folder-styles-open-dark.svg"
-    },
-    "_folder_styles_open_light": {
-      "iconPath": "../icons/folder-styles-open-light.svg"
-    },
-    "_folder_modules": {
-      "iconPath": "../icons/folder-modules-dark.svg"
-    },
-    "_folder_modules_light": {
-      "iconPath": "../icons/folder-modules-light.svg"
-    },
-    "_folder_modules_open": {
-      "iconPath": "../icons/folder-modules-open-dark.svg"
-    },
-    "_folder_modules_open_light": {
-      "iconPath": "../icons/folder-modules-open-light.svg"
-    },
     "_file_jmf": {
-      "iconPath": "../icons/jmf-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmf.svg"
     },
     "_file_jmcss": {
-      "iconPath": "../icons/jmcss-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmcss.svg"
     },
     "_file_jmhtml": {
-      "iconPath": "../icons/jmhtml-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmhtml.svg"
     },
     "_file_jmconfig": {
-      "iconPath": "../icons/jmconfig-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmconfig.svg"
     },
     "_file_jmtemplate": {
-      "iconPath": "../icons/jmtemplate-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmtemplate.svg"
     },
     "_file_jmmodule": {
-      "iconPath": "../icons/jmmodule-icon.svg"
+      "iconPath": "../src/icons/files/jmf/file_jmmodule.svg"
+    },
+    "_file_jmjs": {
+      "iconPath": "../src/icons/files/jmf/file_jmjs.svg"
+    },
+    "_file_jmu": {
+      "iconPath": "../src/icons/files/jmf/file_jmu.svg"
+    },
+    "_folder_jmf": {
+      "iconPath": "../src/icons/folders/jmf/folder_jmf.svg"
+    },
+    "_folder_jmf_open": {
+      "iconPath": "../src/icons/folders/jmf/folder_jmf_open.svg"
+    },
+    "_folder_components": {
+      "iconPath": "../src/icons/folders/jmf/folder_components.svg"
+    },
+    "_folder_components_open": {
+      "iconPath": "../src/icons/folders/jmf/folder_components_open.svg"
+    },
+    "_folder_templates": {
+      "iconPath": "../src/icons/folders/jmf/folder_templates.svg"
+    },
+    "_folder_templates_open": {
+      "iconPath": "../src/icons/folders/jmf/folder_templates_open.svg"
+    },
+    "_folder_styles": {
+      "iconPath": "../src/icons/folders/jmf/folder_styles.svg"
+    },
+    "_folder_styles_open": {
+      "iconPath": "../src/icons/folders/jmf/folder_styles_open.svg"
+    },
+    "_folder_modules": {
+      "iconPath": "../src/icons/folders/jmf/folder_modules.svg"
+    },
+    "_folder_modules_open": {
+      "iconPath": "../src/icons/folders/jmf/folder_modules_open.svg"
     }
   },
   "fileExtensions": {
@@ -121,49 +61,9 @@
     "jmhtml": "_file_jmhtml",
     "jmconfig": "_file_jmconfig",
     "jmtemplate": "_file_jmtemplate",
-    "jmmodule": "_file_jmmodule"
-  },
-  "light": {
-    "fileExtensions": {
-      "jmf": "_file_jmf",
-      "jmcss": "_file_jmcss",
-      "jmhtml": "_file_jmhtml",
-      "jmconfig": "_file_jmconfig",
-      "jmtemplate": "_file_jmtemplate",
-      "jmmodule": "_file_jmmodule"
-    },
-    "languageIds": {
-      "jmf": "_file_jmf",
-      "jmcss": "_file_jmcss",
-      "jmhtml": "_file_jmhtml",
-      "jmconfig": "_file_jmconfig",
-      "jmtemplate": "_file_jmtemplate",
-      "jmmodule": "_file_jmmodule"
-    },
-    "folder": "_folder_jmf_light",
-    "folderExpanded": "_folder_jmf_open_light",
-    "folderNames": {
-      "components": "_folder_components_light",
-      "component": "_folder_components_light",
-      "templates": "_folder_templates_light",
-      "template": "_folder_templates_light",
-      "modules": "_folder_modules_light",
-      "module": "_folder_modules_light",
-      "styles": "_folder_styles_light",
-      "style": "_folder_styles_light",
-      "css": "_folder_styles_light"
-    },
-    "folderNamesExpanded": {
-      "components": "_folder_components_open_light",
-      "component": "_folder_components_open_light",
-      "templates": "_folder_templates_open_light",
-      "template": "_folder_templates_open_light",
-      "modules": "_folder_modules_open_light",
-      "module": "_folder_modules_open_light",
-      "styles": "_folder_styles_open_light",
-      "style": "_folder_styles_open_light",
-      "css": "_folder_styles_open_light"
-    }
+    "jmmodule": "_file_jmmodule",
+    "jmjs": "_file_jmjs",
+    "jmu": "_file_jmu"
   },
   "languageIds": {
     "jmf": "_file_jmf",
@@ -171,7 +71,9 @@
     "jmhtml": "_file_jmhtml",
     "jmconfig": "_file_jmconfig",
     "jmtemplate": "_file_jmtemplate",
-    "jmmodule": "_file_jmmodule"
+    "jmmodule": "_file_jmmodule",
+    "jmjs": "_file_jmjs",
+    "jmu": "_file_jmu"
   },
   "folder": "_folder_jmf",
   "folderExpanded": "_folder_jmf_open",
@@ -183,7 +85,7 @@
     "modules": "_folder_modules",
     "module": "_folder_modules",
     "styles": "_folder_styles",
-    "style": "_folder_styles", 
+    "style": "_folder_styles",
     "css": "_folder_styles"
   },
   "folderNamesExpanded": {

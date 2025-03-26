@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- File body -->
+    <path d="M3 2C2.44772 2 2 2.44772 2 3V13C2 13.5523 2.44772 14 3 14H13C13.5523 14 14 13.5523 14 13V5.5L9.5 2H3Z" 
+          stroke="var(--vscode-icon-foreground)" 
+          stroke-width="1.5" 
+          fill="none"/>
+    <!-- File tab -->
+    <path d="M9.5 2V5.5H14" 
+          stroke="var(--vscode-icon-foreground)" 
+          stroke-width="1.5" 
+          stroke-linecap="round"/>
+    <!-- Presentation badge -->
+    <path d="M4 6H12V8H4V6Z" 
+          stroke="var(--vscode-icon-foreground)" 
+          stroke-width="1.5" 
+          fill="var(--vscode-icon-foreground)" 
+          fill-opacity="0.1"/>
+    <text x="4" y="7.5" 
+          font-family="Arial" 
+          font-size="6" 
+          fill="var(--vscode-icon-foreground)">PRS</text>
+</svg> 

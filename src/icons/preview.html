@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMFramework Icons Preview</title>
+    <style>
+        :root {
+            --vscode-icon-foreground: #424242;
+            --vscode-icon-foreground-active: #007ACC;
+            --vscode-icon-foreground-modified: #E5C07B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #444;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .icon-item:hover {
+            background: #f0f0f0;
+        }
+
+        .icon-preview {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .icon-info {
+            flex: 1;
+        }
+
+        .icon-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .icon-path {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .theme-switch:hover {
+            background: #f0f0f0;
+        }
+
+        /* Dark theme */
+        body.dark {
+            background: #1e1e1e;
+            color: #fff;
+        }
+
+        body.dark .section {
+            background: #2d2d2d;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        body.dark h1, body.dark h2 {
+            color: #fff;
+        }
+
+        body.dark .icon-item {
+            background: #333;
+        }
+
+        body.dark .icon-item:hover {
+            background: #444;
+        }
+
+        body.dark .icon-preview {
+            background: #2d2d2d;
+        }
+
+        body.dark .icon-name {
+            color: #fff;
+        }
+
+        body.dark .icon-path {
+            color: #aaa;
+        }
+
+        body.dark .theme-switch {
+            background: #2d2d2d;
+            border-color: #444;
+            color: #fff;
+        }
+
+        body.dark .theme-switch:hover {
+            background: #444;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        body.dark .loading {
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-switch" onclick="toggleTheme()">Toggle Theme</button>
+    <div class="container">
+        <h1>JMFramework Icons Preview</h1>
+        
+        <div class="section">
+            <h2>Folder Icons</h2>
+            <div class="icon-grid" id="folder-icons">
+                <div class="loading">Loading folder icons...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>File Icons</h2>
+            <div class="icon-grid" id="file-icons">
+                <div class="loading">Loading file icons...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            if (document.body.classList.contains('dark')) {
+                document.documentElement.style.setProperty('--vscode-icon-foreground', '#C5C07B');
+            } else {
+                document.documentElement.style.setProperty('--vscode-icon-foreground', '#424242');
+            }
+        }
+
+        // Load SVG icons
+        async function loadIcons() {
+            const folderGrid = document.getElementById('folder-icons');
+            const fileGrid = document.getElementById('file-icons');
+
+            try {
+                // Load folder icons
+                const folderResponse = await fetch('/folders/index.json');
+                const folderIcons = await folderResponse.json();
+                
+                folderGrid.innerHTML = ''; // Clear loading message
+                for (const icon of folderIcons) {
+                    const response = await fetch(icon);
+                    const svg = await response.text();
+                    const name = icon.split('/').pop().replace('.svg', '');
+                    const path = icon;
+                    
+                    folderGrid.innerHTML += `
+                        <div class="icon-item">
+                            <div class="icon-preview">${svg}</div>
+                            <div class="icon-info">
+                                <div class="icon-name">${name}</div>
+                                <div class="icon-path">${path}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Load file icons
+                const fileResponse = await fetch('/files/index.json');
+                const fileIcons = await fileResponse.json();
+                
+                fileGrid.innerHTML = ''; // Clear loading message
+                for (const icon of fileIcons) {
+                    const response = await fetch(icon);
+                    const svg = await response.text();
+                    const name = icon.split('/').pop().replace('.svg', '');
+                    const path = icon;
+                    
+                    fileGrid.innerHTML += `
+                        <div class="icon-item">
+                            <div class="icon-preview">${svg}</div>
+                            <div class="icon-info">
+                                <div class="icon-name">${name}</div>
+                                <div class="icon-path">${path}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading icons:', error);
+                folderGrid.innerHTML = '<div class="loading">Error loading folder icons</div>';
+                fileGrid.innerHTML = '<div class="loading">Error loading file icons</div>';
+            }
+        }
+
+        // Initialize
+        loadIcons();
+    </script>
+</body>
+</html>

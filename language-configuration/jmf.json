@@ -36,5 +36,47 @@
   "indentationRules": {
     "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"']*|\\([^)\"']*|\\[[^\\]\"']*)$",
     "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\}\\]].*$"
-  }
+  },
+  "onEnterRules": [
+    {
+      "beforeText": "^\\s*\\b(if|else|for|while|do|switch|case|default|try|catch|finally|class|function|component|property|state|effect|render|methods)\\b.*$",
+      "action": {
+        "indent": "indent"
+      }
+    },
+    {
+      "beforeText": "^\\s*\\b(import|export)\\b.*$",
+      "action": {
+        "indent": "indent"
+      }
+    }
+  ],
+  "suggestOnTriggerCharacters": true,
+  "wordBasedSuggestions": true,
+  "snippets": [
+    {
+      "prefix": "jmf",
+      "body": [
+        "// JMFramework Component",
+        "component ${1:ComponentName} {",
+        "    property ${2:propertyName} = ${3:value};",
+        "    ",
+        "    state {",
+        "        ${4:stateName}: ${5:initialValue}",
+        "    }",
+        "    ",
+        "    effect() {",
+        "        ${6:// effect code}",
+        "    }",
+        "    ",
+        "    render() {",
+        "        return (",
+        "            ${7:// render code}",
+        "        );",
+        "    }",
+        "}"
+      ],
+      "description": "JMF Component Template"
+    }
+  ]
 } 

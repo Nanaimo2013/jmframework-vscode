@@ -1,19 +1,51 @@
-.vscode/**
-.vscode-test/**
+# Build output (except extension files)
+dist/**
+out/**
+!out/extension/**
+
+# Source files (not needed in package)
 src/**
 **/*.ts
 **/*.map
-.gitignore
-tsconfig.json
-node_modules
+
+# VS Code specific
+.vscode/**
+.vscode-test/**
+
+# Dependencies
 node_modules/**
-.git
-.github
-.editorconfig
-webpack.config.js
-.eslintrc.json
-.gitattributes
-.yarnrc
-yarn.lock
 package-lock.json
-**/.DS_Store 
+yarn.lock
+
+# Git
+.git/**
+.gitignore
+.gitattributes
+
+# Config files
+tsconfig.json
+.eslintrc.json
+.editorconfig
+.yarnrc
+webpack.config.js
+
+# Development files
+*.vsix
+*.vsixmanifest
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env*
+!.env.example
+
+# Test files
+coverage/**
+*.lcov
+.nyc_output/**
+
+# Misc
+*.log
+*.tmp
+*.temp
+.cache/** 

@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "JMF: Debug",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/src/*"
+            },
+            "preLaunchTask": "JMF: Build"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "JMF: Debug Compiler",
+            "program": "${workspaceFolder}/tools/jmfc.jmf",
+            "args": [
+                "${file}",
+                "--output",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "--debug"
+            ],
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ]
+        }
+    ]
+} 

@@ -1,7 +1,32 @@
-node_modules
-.vscode
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+out/
+build/
+builds/
+dist/
+*.vsix
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+
+# Environment
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# OS
+.DS_Store
+Thumbs.db

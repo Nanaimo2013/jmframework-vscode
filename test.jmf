@@ -1,0 +1,7 @@
+component Test {
+    property message = "Hello World!";
+    
+    render {
+        <div>{message}</div>
+    }
+} 

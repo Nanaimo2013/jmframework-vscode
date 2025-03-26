@@ -1,0 +1,216 @@
+{
+    "name": "JMFramework Dark",
+    "type": "dark",
+    "colors": {
+        "editor.background": "#1E1E1E",
+        "editor.foreground": "#D4D4D4",
+        "editor.lineHighlightBackground": "#2A2D2E",
+        "editor.selectionBackground": "#264F78",
+        "editorCursor.foreground": "#D4D4D4",
+        "editorWhitespace.foreground": "#404040",
+        "editorLineNumber.foreground": "#858585",
+        "editorLineNumber.activeForeground": "#C6C6C6",
+        "editorGutter.modifiedBackground": "#1B81CB",
+        "editorGutter.addedBackground": "#487E02",
+        "editorGutter.deletedBackground": "#94151B",
+        "editorError.foreground": "#F48771",
+        "editorWarning.foreground": "#CCA700",
+        "editorInfo.foreground": "#3794FF",
+        "editorBracketMatch.background": "#0064001A",
+        "editorBracketMatch.border": "#888888",
+        "editor.findMatchBackground": "#515C6A",
+        "editor.findMatchHighlightBackground": "#3143657F",
+        "editor.selectionHighlightBackground": "#ADD6FF26",
+        "editor.wordHighlightBackground": "#575757B8",
+        "editor.wordHighlightStrongBackground": "#004972B8",
+        "editorBracketPairGuide.activeBackground1": "#575757",
+        "editorBracketPairGuide.activeBackground2": "#404040",
+        "editorBracketPairGuide.activeBackground3": "#2D2D2D",
+        "editorBracketPairGuide.activeBackground4": "#1A1A1A",
+        "editorBracketPairGuide.activeBackground5": "#0D0D0D",
+        "editorBracketPairGuide.activeBackground6": "#000000",
+        "editorBracketPairGuide.background1": "#575757",
+        "editorBracketPairGuide.background2": "#404040",
+        "editorBracketPairGuide.background3": "#2D2D2D",
+        "editorBracketPairGuide.background4": "#1A1A1A",
+        "editorBracketPairGuide.background5": "#0D0D0D",
+        "editorBracketPairGuide.background6": "#000000"
+    },
+    "tokenColors": [
+        {
+            "name": "Comments",
+            "scope": ["comment", "punctuation.definition.comment"],
+            "settings": {
+                "foreground": "#6A9955"
+            }
+        },
+        {
+            "name": "Strings",
+            "scope": ["string", "string.template", "punctuation.definition.string"],
+            "settings": {
+                "foreground": "#CE9178"
+            }
+        },
+        {
+            "name": "Keywords",
+            "scope": ["keyword", "storage.type", "storage.modifier", "support.type.primitive"],
+            "settings": {
+                "foreground": "#569CD6"
+            }
+        },
+        {
+            "name": "Functions",
+            "scope": ["entity.name.function", "support.function", "meta.function-call"],
+            "settings": {
+                "foreground": "#DCDCAA"
+            }
+        },
+        {
+            "name": "Variables",
+            "scope": ["variable", "variable.parameter", "variable.other"],
+            "settings": {
+                "foreground": "#9CDCFE"
+            }
+        },
+        {
+            "name": "Properties",
+            "scope": ["variable.other.property", "variable.other.object"],
+            "settings": {
+                "foreground": "#4FC1FF"
+            }
+        },
+        {
+            "name": "Classes",
+            "scope": ["entity.name.type", "entity.name.type.class", "entity.name.type.interface"],
+            "settings": {
+                "foreground": "#4EC9B0"
+            }
+        },
+        {
+            "name": "Constants",
+            "scope": ["constant", "constant.numeric", "constant.language", "constant.character", "constant.other"],
+            "settings": {
+                "foreground": "#4FC1FF"
+            }
+        },
+        {
+            "name": "Operators",
+            "scope": ["keyword.operator", "keyword.operator.arithmetic", "keyword.operator.logical", "keyword.operator.bitwise", "keyword.operator.comparison", "keyword.operator.assignment"],
+            "settings": {
+                "foreground": "#D4D4D4"
+            }
+        },
+        {
+            "name": "Punctuation",
+            "scope": ["punctuation", "punctuation.terminator", "punctuation.separator", "punctuation.definition"],
+            "settings": {
+                "foreground": "#D4D4D4"
+            }
+        },
+        {
+            "name": "JMF Specific",
+            "scope": ["keyword.control.jmf", "support.function.jmf", "entity.name.type.jmf", "variable.other.jmf", "constant.language.jmf"],
+            "settings": {
+                "foreground": "#569CD6"
+            }
+        },
+        {
+            "name": "JMF Component",
+            "scope": ["entity.name.type.component.jmf", "keyword.control.component.jmf"],
+            "settings": {
+                "foreground": "#4EC9B0"
+            }
+        },
+        {
+            "name": "JMF Style",
+            "scope": ["entity.name.type.style.jmf", "keyword.control.style.jmf"],
+            "settings": {
+                "foreground": "#CE9178"
+            }
+        },
+        {
+            "name": "JMF Property",
+            "scope": ["variable.other.property.jmf", "keyword.control.property.jmf"],
+            "settings": {
+                "foreground": "#9CDCFE"
+            }
+        },
+        {
+            "name": "JMF Dynamic",
+            "scope": ["support.function.dynamic.jmf", "keyword.control.dynamic.jmf"],
+            "settings": {
+                "foreground": "#DCDCAA"
+            }
+        },
+        {
+            "name": "JMF Module",
+            "scope": ["entity.name.type.module.jmf", "keyword.control.module.jmf"],
+            "settings": {
+                "foreground": "#4FC1FF"
+            }
+        },
+        {
+            "name": "JMF Template",
+            "scope": ["entity.name.type.template.jmf", "keyword.control.template.jmf"],
+            "settings": {
+                "foreground": "#CE9178"
+            }
+        },
+        {
+            "name": "JMF Config",
+            "scope": ["entity.name.type.config.jmf", "keyword.control.config.jmf"],
+            "settings": {
+                "foreground": "#9CDCFE"
+            }
+        },
+        {
+            "name": "JMF Directive",
+            "scope": ["entity.name.directive.jmf", "keyword.control.directive.jmf"],
+            "settings": {
+                "foreground": "#569CD6"
+            }
+        },
+        {
+            "name": "JMF Event",
+            "scope": ["entity.name.event.jmf", "keyword.control.event.jmf"],
+            "settings": {
+                "foreground": "#DCDCAA"
+            }
+        },
+        {
+            "name": "JMF Method",
+            "scope": ["entity.name.method.jmf", "keyword.control.method.jmf"],
+            "settings": {
+                "foreground": "#4EC9B0"
+            }
+        },
+        {
+            "name": "JMF State",
+            "scope": ["entity.name.state.jmf", "keyword.control.state.jmf"],
+            "settings": {
+                "foreground": "#4FC1FF"
+            }
+        },
+        {
+            "name": "JMF Effect",
+            "scope": ["entity.name.effect.jmf", "keyword.control.effect.jmf"],
+            "settings": {
+                "foreground": "#CE9178"
+            }
+        },
+        {
+            "name": "JMF Watch",
+            "scope": ["entity.name.watch.jmf", "keyword.control.watch.jmf"],
+            "settings": {
+                "foreground": "#9CDCFE"
+            }
+        },
+        {
+            "name": "JMF Computed",
+            "scope": ["entity.name.computed.jmf", "keyword.control.computed.jmf"],
+            "settings": {
+                "foreground": "#DCDCAA"
+            }
+        }
+    ]
+} 

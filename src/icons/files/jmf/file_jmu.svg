@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- File shape with gradient -->
+    <path d="M3 1C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V5L10 1H3Z" fill="url(#gradient)"/>
+    
+    <!-- File fold -->
+    <path d="M10 1L14 5H10V1Z" fill="white" fill-opacity="0.3"/>
+    
+    <!-- White border -->
+    <path d="M3 1C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V5L10 1H3Z" 
+          stroke="white" stroke-width="1" fill="none"/>
+    
+    <!-- Text with better rendering -->
+    <text x="8" y="9.5" 
+          font-family="Segoe UI, Arial, sans-serif" 
+          font-size="5" 
+          font-weight="600"
+          fill="white"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          style="letter-spacing: 0.1px">UI</text>
+
+    <!-- Gradient definition -->
+    <defs>
+        <linearGradient id="gradient" x1="2" y1="1" x2="14" y2="15" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F44336"/>
+            <stop offset="100%" stop-color="#B71C1C"/>
+        </linearGradient>
+    </defs>
+</svg> 

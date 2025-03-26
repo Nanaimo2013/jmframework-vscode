@@ -13,7 +13,11 @@
     { "include": "#properties" },
     { "include": "#functions" },
     { "include": "#states" },
-    { "include": "#effects" }
+    { "include": "#effects" },
+    { "include": "#runtime" },
+    { "include": "#classes" },
+    { "include": "#maps" },
+    { "include": "#performance" }
   ],
   "repository": {
     "comments": {
@@ -223,29 +227,20 @@
       "patterns": [
         {
           "name": "meta.property.declaration.jmf",
-          "begin": "\\b(properties)\\s*({)",
-          "end": "}",
+          "begin": "\\b(property)\\s+([a-zA-Z_$][\\w$]*)\\s*(=)",
+          "end": ";",
           "beginCaptures": {
             "1": { "name": "storage.type.property.jmf" },
-            "2": { "name": "punctuation.definition.block.begin.jmf" }
+            "2": { "name": "variable.other.property.jmf" },
+            "3": { "name": "keyword.operator.assignment.jmf" }
           },
           "endCaptures": {
-            "0": { "name": "punctuation.definition.block.end.jmf" }
+            "0": { "name": "punctuation.terminator.statement.jmf" }
           },
           "patterns": [
-            {
-              "name": "meta.property.jmf",
-              "match": "\\s*([a-zA-Z_$][\\w$]*)\\s*:\\s*([a-zA-Z_$][\\w$.]*)(?:\\s*=\\s*([^;,]+))?\\s*([;,])",
-              "captures": {
-                "1": { "name": "variable.other.property.jmf" },
-                "2": { "name": "support.type.primitive.jmf" },
-                "3": { "name": "constant.other.jmf" },
-                "4": { "name": "punctuation.separator.jmf" }
-              }
-            },
-            { "include": "#strings" },
-            { "include": "#numbers" },
-            { "include": "#comments" }
+            { "include": "#maps" },
+            { "include": "#performance" },
+            { "include": "#expressions" }
           ]
         }
       ]
@@ -356,20 +351,19 @@
       "patterns": [
         {
           "name": "meta.function.declaration.jmf",
-          "begin": "\\b(function)\\s+([a-zA-Z_$][\\w$]*)\\s*(\\()",
-          "end": "\\)",
+          "begin": "\\b([a-zA-Z_$][\\w$]*)\\s*(\\()",
+          "end": "\\)\\s*({)",
           "beginCaptures": {
-            "1": { "name": "storage.type.function.jmf" },
-            "2": { "name": "entity.name.function.jmf" },
-            "3": { "name": "punctuation.definition.parameters.begin.jmf" }
+            "1": { "name": "entity.name.function.jmf" },
+            "2": { "name": "punctuation.definition.parameters.begin.jmf" }
           },
           "endCaptures": {
-            "0": { "name": "punctuation.definition.parameters.end.jmf" }
+            "1": { "name": "punctuation.definition.block.begin.jmf" }
           },
           "patterns": [
             {
               "name": "variable.parameter.jmf",
-              "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+              "match": "\\b([a-zA-Z_$][\\w$]*)\\s*(=\\s*([^,)]+))?\\b"
             },
             {
               "name": "punctuation.separator.parameter.jmf",
@@ -573,6 +567,95 @@
         {
           "name": "constant.numeric.binary.jmf",
           "match": "\\b0[bB][01]+\\b"
+        }
+      ]
+    },
+    "runtime": {
+      "patterns": [
+        {
+          "name": "meta.runtime.jmf",
+          "begin": "\\b(class)\\s+(Runtime)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.class.jmf" },
+            "2": { "name": "entity.name.type.class.runtime.jmf" },
+            "3": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            { "include": "#properties" },
+            { "include": "#functions" },
+            { "include": "#maps" },
+            { "include": "#performance" },
+            { "include": "$self" }
+          ]
+        }
+      ]
+    },
+    "maps": {
+      "patterns": [
+        {
+          "name": "meta.map.declaration.jmf",
+          "begin": "\\b(new)\\s+(Map)\\s*\\(\\s*\\)",
+          "end": ";",
+          "beginCaptures": {
+            "1": { "name": "keyword.operator.new.jmf" },
+            "2": { "name": "support.class.map.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.statement.jmf" }
+          }
+        }
+      ]
+    },
+    "performance": {
+      "patterns": [
+        {
+          "name": "meta.performance.jmf",
+          "begin": "\\b(performance)\\s*=\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "variable.other.performance.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.performance.metric.jmf",
+              "match": "\\s*([a-zA-Z_$][\\w$]*)\\s*:\\s*([0-9]+)\\s*[,}]",
+              "captures": {
+                "1": { "name": "variable.other.performance.metric.jmf" },
+                "2": { "name": "constant.numeric.jmf" }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "classes": {
+      "patterns": [
+        {
+          "name": "meta.class.declaration.jmf",
+          "begin": "\\b(class)\\s+([A-Z][a-zA-Z0-9_$]*)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.class.jmf" },
+            "2": { "name": "entity.name.type.class.jmf" },
+            "3": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            { "include": "#properties" },
+            { "include": "#functions" },
+            { "include": "#maps" },
+            { "include": "$self" }
+          ]
         }
       ]
     }
