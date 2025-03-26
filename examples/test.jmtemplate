@@ -1,0 +1,268 @@
+// JMF Template Test File
+// This is a sample JMTemplate file to test syntax highlighting
+
+// Import statements
+import { Button } from "@components/Button.jmf";
+import { Card } from "@components/Card.jmf";
+import { formatDate } from "@utils/dates.jmf";
+
+// Template declaration
+template ProductCard {
+  // Template properties with default values
+  property title = "Product Title";
+  property price = 0;
+  property salePrice = null;
+  property image = "";
+  property rating = 0;
+  property reviewCount = 0;
+  property stock = 0;
+  property description = "";
+  property onAddToCart = () => {};
+  property onFavorite = () => {};
+  property isFavorite = false;
+  property theme = "light";
+  
+  // Computed properties
+  compute isOnSale() {
+    return salePrice !== null && salePrice < price;
+  }
+  
+  compute displayPrice() {
+    return isOnSale ? salePrice : price;
+  }
+  
+  compute priceFormatted() {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(displayPrice);
+  }
+  
+  compute inStock() {
+    return stock > 0;
+  }
+  
+  compute ratingStars() {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    return {
+      full: fullStars,
+      half: hasHalfStar ? 1 : 0,
+      empty: emptyStars
+    };
+  }
+  
+  // Template-specific styles
+  styles {
+    .product-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: ${theme === 'dark' ? '#2a2a2a' : 'white'};
+      color: ${theme === 'dark' ? '#e0e0e0' : '#333'};
+      
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+    
+    .product-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &:hover img {
+        transform: scale(1.05);
+      }
+    }
+    
+    .sale-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #e53935;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    
+    .favorite-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
+      &.active {
+        color: #e53935;
+      }
+    }
+    
+    .product-info {
+      padding: 16px;
+    }
+    
+    .product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: ${theme === 'dark' ? 'white' : '#212121'};
+    }
+    
+    .product-price {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .original-price {
+      text-decoration: line-through;
+      color: ${theme === 'dark' ? '#999' : '#757575'};
+      font-size: 14px;
+      margin-right: 8px;
+    }
+    
+    .current-price {
+      color: ${theme === 'dark' ? '#80cbc4' : '#009688'};
+      font-size: 18px;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      
+      .stars {
+        display: flex;
+        margin-right: 8px;
+      }
+      
+      .star {
+        color: #ffc107;
+        font-size: 16px;
+      }
+      
+      .review-count {
+        font-size: 14px;
+        color: ${theme === 'dark' ? '#bdbdbd' : '#757575'};
+      }
+    }
+    
+    .product-description {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      color: ${theme === 'dark' ? '#bdbdbd' : '#757575'};
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+    
+    .stock-status {
+      font-size: 14px;
+      font-weight: 500;
+      
+      &.in-stock {
+        color: ${theme === 'dark' ? '#81c784' : '#4caf50'};
+      }
+      
+      &.out-of-stock {
+        color: ${theme === 'dark' ? '#e57373' : '#f44336'};
+      }
+    }
+  }
+  
+  // Template rendering
+  render {
+    <div class="product-card">
+      <div class="product-image">
+        <img src="${image}" alt="${title}" />
+        
+        ${isOnSale ? 
+          <div class="sale-badge">Sale</div>
+        : null}
+        
+        <button 
+          class="favorite-btn ${isFavorite ? 'active' : ''}" 
+          onclick=${onFavorite}
+          aria-label="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}"
+        >
+          <i class="icon icon-heart"></i>
+        </button>
+      </div>
+      
+      <div class="product-info">
+        <h3 class="product-title">${title}</h3>
+        
+        <div class="product-price">
+          ${isOnSale ? 
+            <span class="original-price">${new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(price)}</span>
+          : null}
+          <span class="current-price">${priceFormatted}</span>
+        </div>
+        
+        <div class="product-rating">
+          <div class="stars">
+            ${Array.from({ length: ratingStars.full }).map(() => 
+              <span class="star">★</span>
+            )}
+            ${ratingStars.half ? <span class="star">★</span> : null}
+            ${Array.from({ length: ratingStars.empty }).map(() => 
+              <span class="star">☆</span>
+            )}
+          </div>
+          <span class="review-count">(${reviewCount} reviews)</span>
+        </div>
+        
+        <p class="product-description">${description}</p>
+        
+        <div class="product-actions">
+          <span class="stock-status ${inStock ? 'in-stock' : 'out-of-stock'}">
+            ${inStock ? `In Stock (${stock})` : 'Out of Stock'}
+          </span>
+          
+          <Button 
+            text="Add to Cart" 
+            onClick=${onAddToCart}
+            disabled=${!inStock}
+            size="small"
+            color=${theme === 'dark' ? 'secondary' : 'primary'}
+          />
+        </div>
+      </div>
+    </div>
+  }
+} 

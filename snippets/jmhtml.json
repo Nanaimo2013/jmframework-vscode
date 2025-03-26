@@ -1,0 +1,318 @@
+{
+  "Basic HTML5 Template": {
+    "prefix": "html5",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "\t<meta charset=\"UTF-8\">",
+      "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "\t<title>${1:Document Title}</title>",
+      "</head>",
+      "<body>",
+      "\t$0",
+      "</body>",
+      "</html>"
+    ],
+    "description": "Basic HTML5 template"
+  },
+  "JMF Template Variable": {
+    "prefix": "var",
+    "body": [
+      "${${1:variableName}}"
+    ],
+    "description": "Insert a JMF template variable"
+  },
+  "JMF Conditional Block": {
+    "prefix": "if",
+    "body": [
+      "<if ${1:condition}>",
+      "\t$0",
+      "</if>"
+    ],
+    "description": "JMF conditional block"
+  },
+  "JMF Conditional with Else": {
+    "prefix": "ifelse",
+    "body": [
+      "<if ${1:condition}>",
+      "\t$2",
+      "<else>",
+      "\t$0",
+      "</if>"
+    ],
+    "description": "JMF conditional block with else"
+  },
+  "JMF Conditional with Else-If": {
+    "prefix": "ifelseif",
+    "body": [
+      "<if ${1:condition}>",
+      "\t$2",
+      "<else-if ${3:condition}>",
+      "\t$4",
+      "<else>",
+      "\t$0",
+      "</if>"
+    ],
+    "description": "JMF conditional block with else-if and else"
+  },
+  "JMF Loop": {
+    "prefix": "for",
+    "body": [
+      "<for ${1:item} in ${2:items}>",
+      "\t$0",
+      "</for>"
+    ],
+    "description": "JMF loop block"
+  },
+  "JMF Component Instance": {
+    "prefix": "component",
+    "body": [
+      "<${1:ComponentName} ${2:propName}=\"${3:value}\">${0}</${1:ComponentName}>"
+    ],
+    "description": "JMF component instance"
+  },
+  "JMF Self-Closing Component": {
+    "prefix": "component-self",
+    "body": [
+      "<${1:ComponentName} ${2:propName}=\"${3:value}\" />"
+    ],
+    "description": "Self-closing JMF component instance"
+  },
+  "JMF Property Binding": {
+    "prefix": "bind",
+    "body": [
+      "[${1:propName}]=\"${2:expression}\""
+    ],
+    "description": "JMF property binding attribute"
+  },
+  "JMF Event Binding": {
+    "prefix": "event",
+    "body": [
+      "(${1:eventName})=\"${2:handlerExpression}\""
+    ],
+    "description": "JMF event binding attribute"
+  },
+  "Form with Validation": {
+    "prefix": "form",
+    "body": [
+      "<form (submit)=\"${1:submitHandler}\">",
+      "\t<div class=\"form-group\">",
+      "\t\t<label for=\"${2:inputId}\">${3:Label Text}</label>",
+      "\t\t<input type=\"${4|text,email,password,number|}\" id=\"${2:inputId}\" [value]=\"${5:formValue}\" required>",
+      "\t</div>",
+      "\t<button type=\"submit\">${6:Submit}</button>",
+      "</form>"
+    ],
+    "description": "Form with validation"
+  },
+  "Navigation Bar": {
+    "prefix": "navbar",
+    "body": [
+      "<nav class=\"navbar\">",
+      "\t<div class=\"brand\">",
+      "\t\t<a href=\"#\">${1:Brand Name}</a>",
+      "\t</div>",
+      "\t<ul class=\"nav-links\">",
+      "\t\t<li><a href=\"#\">${2:Home}</a></li>",
+      "\t\t<li><a href=\"#\">${3:About}</a></li>",
+      "\t\t<li><a href=\"#\">${4:Services}</a></li>",
+      "\t\t<li><a href=\"#\">${5:Contact}</a></li>",
+      "\t</ul>",
+      "</nav>"
+    ],
+    "description": "Navigation bar"
+  },
+  "Card Component": {
+    "prefix": "card",
+    "body": [
+      "<div class=\"card\">",
+      "\t<div class=\"card-header\">",
+      "\t\t<h3>${1:Card Title}</h3>",
+      "\t</div>",
+      "\t<div class=\"card-body\">",
+      "\t\t${2:Card content goes here}",
+      "\t</div>",
+      "\t<div class=\"card-footer\">",
+      "\t\t${3:Footer content}",
+      "\t</div>",
+      "</div>"
+    ],
+    "description": "Card component structure"
+  },
+  "Modal Dialog": {
+    "prefix": "modal",
+    "body": [
+      "<if ${1:isModalOpen}>",
+      "\t<div class=\"modal-overlay\">",
+      "\t\t<div class=\"modal-container\">",
+      "\t\t\t<div class=\"modal-header\">",
+      "\t\t\t\t<h2>${2:Modal Title}</h2>",
+      "\t\t\t\t<button class=\"close-button\" (click)=\"${3:closeModal}\">&times;</button>",
+      "\t\t\t</div>",
+      "\t\t\t<div class=\"modal-body\">",
+      "\t\t\t\t${4:Modal content goes here}",
+      "\t\t\t</div>",
+      "\t\t\t<div class=\"modal-footer\">",
+      "\t\t\t\t<button class=\"button secondary\" (click)=\"${3:closeModal}\">${5:Cancel}</button>",
+      "\t\t\t\t<button class=\"button primary\" (click)=\"${6:confirmAction}\">${7:Confirm}</button>",
+      "\t\t\t</div>",
+      "\t\t</div>",
+      "\t</div>",
+      "</if>"
+    ],
+    "description": "Modal dialog component"
+  },
+  "Grid Layout": {
+    "prefix": "grid",
+    "body": [
+      "<div class=\"grid-container\">",
+      "\t<div class=\"grid-item\">${1:Item 1}</div>",
+      "\t<div class=\"grid-item\">${2:Item 2}</div>",
+      "\t<div class=\"grid-item\">${3:Item 3}</div>",
+      "\t<div class=\"grid-item\">${4:Item 4}</div>",
+      "</div>"
+    ],
+    "description": "CSS Grid layout container with items"
+  },
+  "Flexbox Layout": {
+    "prefix": "flex",
+    "body": [
+      "<div class=\"flex-container\">",
+      "\t<div class=\"flex-item\">${1:Item 1}</div>",
+      "\t<div class=\"flex-item\">${2:Item 2}</div>",
+      "\t<div class=\"flex-item\">${3:Item 3}</div>",
+      "</div>"
+    ],
+    "description": "Flexbox layout container with items"
+  },
+  "JMHTML Document": {
+    "prefix": "jmhtml-document",
+    "body": [
+      "<!--",
+      " * JMFramework HTML File",
+      " * ${1:Description}",
+      " * Version: ${2:1.0.0}",
+      " * Author: ${3:Your Name}",
+      " * Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " -->",
+      "",
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "  <meta charset=\"UTF-8\">",
+      "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "  <title>${4:Page Title}</title>",
+      "  <link rel=\"stylesheet\" href=\"${5:./styles/main.jmcss}\">",
+      "</head>",
+      "<body>",
+      "  <div class=\"container\">",
+      "    <!-- Header -->",
+      "    <header class=\"header\">",
+      "      <h1>${4:Page Title}</h1>",
+      "      <p>${6:Page description goes here}</p>",
+      "    </header>",
+      "",
+      "    <!-- Main Content -->",
+      "    <main>",
+      "      <!-- JMF component usage -->",
+      "      <${7:Button} ",
+      "        text=\"${8:Click Me}\" ",
+      "        color=\"${9:#1E88E5}\"",
+      "        j-on:click=\"${10:handleClick}\"",
+      "      />",
+      "      ",
+      "      <!-- Conditional rendering -->",
+      "      <div j-if=\"${11:showDetails}\">",
+      "        <h2>Additional Details</h2>",
+      "        <p>${12:These details are only shown conditionally}</p>",
+      "      </div>",
+      "      ",
+      "      <!-- List rendering -->",
+      "      <section>",
+      "        <h2>${13:Items}</h2>",
+      "        <ul>",
+      "          <li j-for=\"${14:item} in ${15:items}\">",
+      "            {${14:item}.name}",
+      "          </li>",
+      "        </ul>",
+      "      </section>",
+      "    </main>",
+      "",
+      "    <!-- Footer -->",
+      "    <footer>",
+      "      <p>&copy; {new Date().getFullYear()} ${16:Your Company}</p>",
+      "    </footer>",
+      "  </div>",
+      "  ",
+      "  <!-- Scripts -->",
+      "  <script src=\"${17:./scripts/main.jmmodule}\"></script>",
+      "</body>",
+      "</html>",
+      ""
+    ],
+    "description": "Create a new JMHTML document with responsive layout and component usage"
+  },
+  "JMF HTML Basic Template": {
+    "prefix": "jmhtml-basic",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "  <meta charset=\"UTF-8\">",
+      "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "  <title>${1:Page Title}</title>",
+      "</head>",
+      "<body>",
+      "  ${2:<div class=\"container\">",
+      "    <h1>${1:Page Title}</h1>",
+      "    <p>Page content goes here</p>",
+      "  </div>}",
+      "</body>",
+      "</html>"
+    ],
+    "description": "Create a basic HTML template"
+  },
+  "JMF Component Usage": {
+    "prefix": "component-usage",
+    "body": [
+      "<${1:ComponentName} ",
+      "  ${2:propName}=\"${3:value}\"",
+      "  j-on:${4:event}=\"${5:handler}\"",
+      "/>"
+    ],
+    "description": "Use a JMF component in HTML"
+  },
+  "JMF Conditional": {
+    "prefix": "j-if",
+    "body": [
+      "<${1:div} j-if=\"${2:condition}\">",
+      "  ${3:content}",
+      "</${1:div}>"
+    ],
+    "description": "Conditional rendering in HTML"
+  },
+  "JMF Loop": {
+    "prefix": "j-for",
+    "body": [
+      "<${1:li} j-for=\"${2:item} in ${3:items}\">",
+      "  ${4:{${2:item}.name}}",
+      "</${1:li}>"
+    ],
+    "description": "Loop over items in HTML"
+  },
+  "JMF Event Binding": {
+    "prefix": "j-on",
+    "body": [
+      "j-on:${1:event}=\"${2:handler}\""
+    ],
+    "description": "Bind an event handler to an element"
+  },
+  "JMF Model Binding": {
+    "prefix": "j-model",
+    "body": [
+      "j-model=\"${1:variable}\""
+    ],
+    "description": "Create a two-way binding with an input element"
+  }
+} 

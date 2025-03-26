@@ -1,0 +1,277 @@
+{
+  "Import Statement": {
+    "prefix": "import",
+    "body": [
+      "@import '${1:filename.jmcss}';"
+    ],
+    "description": "Import another JMCSS file"
+  },
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": [
+      "@var ${1:variable-name}: ${2:value};"
+    ],
+    "description": "Declare a CSS variable"
+  },
+  "Mixin Declaration": {
+    "prefix": "mixin",
+    "body": [
+      "@mixin ${1:mixinName}(${2:$param: default-value}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Create a reusable mixin"
+  },
+  "Include Mixin": {
+    "prefix": "include",
+    "body": [
+      "@include ${1:mixinName}(${2:value});"
+    ],
+    "description": "Include a mixin"
+  },
+  "Function Declaration": {
+    "prefix": "function",
+    "body": [
+      "@function ${1:functionName}(${2:$param}) {",
+      "\t$0",
+      "\t@return ${3:value};",
+      "}"
+    ],
+    "description": "Create a function"
+  },
+  "Keyframes Animation": {
+    "prefix": "keyframes",
+    "body": [
+      "@keyframes ${1:animationName} {",
+      "\t0% {",
+      "\t\t${2:property}: ${3:value};",
+      "\t}",
+      "\t",
+      "\t100% {",
+      "\t\t${2:property}: ${4:value};",
+      "\t}$0",
+      "}"
+    ],
+    "description": "Create a keyframes animation"
+  },
+  "Media Query": {
+    "prefix": "media",
+    "body": [
+      "@media ${1:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Create a media query"
+  },
+  "Flexbox Container": {
+    "prefix": "flex",
+    "body": [
+      "display: flex;",
+      "flex-direction: ${1|row,column,row-reverse,column-reverse|};",
+      "justify-content: ${2|flex-start,flex-end,center,space-between,space-around,space-evenly|};",
+      "align-items: ${3|flex-start,flex-end,center,stretch,baseline|};"
+    ],
+    "description": "Flexbox container properties"
+  },
+  "Grid Container": {
+    "prefix": "grid",
+    "body": [
+      "display: grid;",
+      "grid-template-columns: ${1:repeat(3, 1fr)};",
+      "grid-template-rows: ${2:auto};",
+      "grid-gap: ${3:10px};"
+    ],
+    "description": "Grid container properties"
+  },
+  "Common Breakpoints": {
+    "prefix": "breakpoints",
+    "body": [
+      "@var mobile-breakpoint: 480px;",
+      "@var tablet-breakpoint: 768px;",
+      "@var desktop-breakpoint: 1024px;",
+      "@var large-desktop-breakpoint: 1440px;",
+      "",
+      "@mixin mobile {",
+      "\t@media (max-width: $mobile-breakpoint) {",
+      "\t\t@content;",
+      "\t}",
+      "}",
+      "",
+      "@mixin tablet {",
+      "\t@media (min-width: $mobile-breakpoint + 1) and (max-width: $tablet-breakpoint) {",
+      "\t\t@content;",
+      "\t}",
+      "}",
+      "",
+      "@mixin desktop {",
+      "\t@media (min-width: $tablet-breakpoint + 1) {",
+      "\t\t@content;",
+      "\t}",
+      "}"
+    ],
+    "description": "Common responsive breakpoints"
+  },
+  "Color Variables": {
+    "prefix": "colors",
+    "body": [
+      "@var primary-color: ${1:#007bff};",
+      "@var secondary-color: ${2:#6c757d};",
+      "@var success-color: ${3:#28a745};",
+      "@var danger-color: ${4:#dc3545};",
+      "@var warning-color: ${5:#ffc107};",
+      "@var info-color: ${6:#17a2b8};",
+      "@var light-color: ${7:#f8f9fa};",
+      "@var dark-color: ${8:#343a40};"
+    ],
+    "description": "Common color variables"
+  },
+  "Typography Variables": {
+    "prefix": "typography",
+    "body": [
+      "@var font-family-sans: ${1:'Helvetica Neue', Arial, sans-serif};",
+      "@var font-family-serif: ${2:Georgia, 'Times New Roman', serif};",
+      "@var font-family-mono: ${3:Menlo, Monaco, 'Courier New', monospace};",
+      "",
+      "@var font-size-base: ${4:16px};",
+      "@var font-size-sm: ${5:0.875rem};",
+      "@var font-size-lg: ${6:1.25rem};",
+      "",
+      "@var line-height-base: ${7:1.5};",
+      "@var line-height-sm: ${8:1.25};",
+      "@var line-height-lg: ${9:2};"
+    ],
+    "description": "Typography variables"
+  },
+  "Button Styles": {
+    "prefix": "button",
+    "body": [
+      ".button {",
+      "\tdisplay: inline-block;",
+      "\tpadding: 0.375rem 0.75rem;",
+      "\tborder-radius: 0.25rem;",
+      "\tfont-size: 1rem;",
+      "\tline-height: 1.5;",
+      "\ttext-align: center;",
+      "\tvertical-align: middle;",
+      "\tcursor: pointer;",
+      "\ttransition: all 0.15s ease-in-out;",
+      "\t",
+      "\t&.primary {",
+      "\t\tbackground-color: var(primary-color);",
+      "\t\tcolor: white;",
+      "\t}",
+      "\t",
+      "\t&.secondary {",
+      "\t\tbackground-color: var(secondary-color);",
+      "\t\tcolor: white;",
+      "\t}",
+      "\t",
+      "\t&:hover {",
+      "\t\topacity: 0.9;",
+      "\t}",
+      "\t",
+      "\t&:disabled {",
+      "\t\tcursor: not-allowed;",
+      "\t\topacity: 0.65;",
+      "\t}",
+      "}"
+    ],
+    "description": "Button styles"
+  },
+  "JMCSS Document": {
+    "prefix": "jmcss-document",
+    "body": [
+      "/*",
+      " * JMFramework CSS File",
+      " * ${1:Description}",
+      " * Version: ${2:1.0.0}",
+      " * Author: ${3:Your Name}",
+      " * Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */",
+      "",
+      "// Variables",
+      "variable primary-color = ${4:#1E88E5};",
+      "variable secondary-color = ${5:#66BB6A};",
+      "variable font-size = ${6:16px};",
+      "variable spacing = ${7:8px};",
+      "",
+      "// Mixins",
+      "mixin flex-center() {",
+      "  display: flex;",
+      "  justify-content: center;",
+      "  align-items: center;",
+      "}",
+      "",
+      "// Root styles",
+      ":root {",
+      "  font-family: ${8:Arial, sans-serif};",
+      "  color: #333;",
+      "  line-height: 1.5;",
+      "}",
+      "",
+      "// Container",
+      ".container {",
+      "  max-width: 1200px;",
+      "  margin: 0 auto;",
+      "  padding: calc(\\${spacing} * 2);",
+      "  ",
+      "  // Header styles",
+      "  .header {",
+      "    background-color: \\${primary-color};",
+      "    color: white;",
+      "    padding: calc(\\${spacing} * 2);",
+      "    ",
+      "    // Title",
+      "    .title {",
+      "      font-size: calc(\\${font-size} * 1.5);",
+      "      margin-bottom: \\${spacing};",
+      "    }",
+      "  }",
+      "  ",
+      "  // Content area",
+      "  .content {",
+      "    margin-top: calc(\\${spacing} * 2);",
+      "    @include flex-center();",
+      "    ",
+      "    // Cards",
+      "    .card {",
+      "      background-color: white;",
+      "      border-radius: 4px;",
+      "      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);",
+      "      padding: calc(\\${spacing} * 2);",
+      "      margin: \\${spacing};",
+      "      ",
+      "      &:hover {",
+      "        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);",
+      "      }",
+      "    }",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "Create a new JMCSS document with variables, mixins, and basic styles"
+  },
+  "JMF Variable": {
+    "prefix": "variable",
+    "body": [
+      "variable ${1:name} = ${2:value};"
+    ],
+    "description": "Declare a CSS variable"
+  },
+  "JMF Mixin": {
+    "prefix": "mixin",
+    "body": [
+      "mixin ${1:name}(${2:params}) {",
+      "  ${3:properties}",
+      "}"
+    ],
+    "description": "Create a JMCSS mixin"
+  },
+  "JMF Include": {
+    "prefix": "include",
+    "body": [
+      "@include ${1:mixinName}(${2:params});"
+    ],
+    "description": "Include a mixin in a selector"
+  }
+} 

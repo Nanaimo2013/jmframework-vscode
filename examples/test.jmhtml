@@ -1,0 +1,175 @@
+<!-- 
+  JMF HTML Test File
+  This is a sample JMHTML file to test syntax highlighting
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${pageTitle || "JMF Application"}</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- JMF component styles will be injected here -->
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <a href="/" class="logo">
+        <img src="${logoUrl}" alt="${companyName}" width="120" height="40">
+      </a>
+      
+      <nav class="main-nav">
+        <ul>
+          <!-- Dynamic navigation items -->
+          <li j-for="${item in navItems}" class="${item.isActive ? 'active' : ''}">
+            <a href="${item.url}">${item.label}</a>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- User account section -->
+      <div class="user-section">
+        <div j-if="${isLoggedIn}" class="user-menu">
+          <img src="${user.avatar}" alt="${user.name}" class="avatar">
+          <span>${user.name}</span>
+          <button j-on:click="${logout}" class="logout-btn">Logout</button>
+        </div>
+        <div j-else>
+          <button j-on:click="${showLoginForm}" class="login-btn">Login</button>
+          <button j-on:click="${showSignupForm}" class="signup-btn">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main class="content">
+    <div class="container">
+      <!-- Hero section -->
+      <section class="hero">
+        <h1>${heroTitle}</h1>
+        <p>${heroDescription}</p>
+        <Button 
+          text="Get Started" 
+          color="primary"
+          size="large"
+          j-on:click="${getStarted}"
+        />
+      </section>
+      
+      <!-- Features section -->
+      <section class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+          <FeatureCard 
+            j-for="${feature in features}"
+            title="${feature.title}"
+            description="${feature.description}"
+            icon="${feature.icon}"
+          />
+        </div>
+      </section>
+      
+      <!-- Conditional testimonials section -->
+      <section j-if="${testimonials.length > 0}" class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial-slider">
+          <div j-for="${testimonial in testimonials}" class="testimonial-slide">
+            <blockquote>
+              <p>${testimonial.text}</p>
+              <footer>
+                <cite>${testimonial.author}, ${testimonial.company}</cite>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Subscription form with validation -->
+      <section class="subscription">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to our newsletter to get the latest updates.</p>
+        <form j-on:submit="${handleSubscribe}">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              j-model="${subscribeEmail}"
+              j-bind:class="{ 'error': emailError }"
+              required
+            >
+            <span j-if="${emailError}" class="error-message">${emailError}</span>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="agree" 
+                j-model="${agreeToTerms}"
+                required
+              >
+              I agree to the <a href="/terms">Terms and Conditions</a>
+            </label>
+          </div>
+          <button 
+            type="submit" 
+            class="subscribe-btn" 
+            j-bind:disabled="${!isFormValid}"
+          >
+            Subscribe
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+  
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul>
+            <li j-for="${link in companyLinks}">
+              <a href="${link.url}">${link.label}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li j-for="${link in resourceLinks}">
+              <a href="${link.url}">${link.label}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a j-for="${social in socialLinks}" href="${social.url}" class="social-link ${social.platform}">
+              <img src="${social.icon}" alt="${social.platform}">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; ${currentYear} ${companyName}. All rights reserved.
+        <span>Built with <a href="https://jmframework.dev">JMFramework</a></span>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Modal component with conditional rendering -->
+  <Modal j-if="${isModalVisible}" title="${modalTitle}" j-on:close="${closeModal}">
+    <div j-bind:innerHTML="${modalContent}"></div>
+    <div class="modal-actions">
+      <button j-on:click="${modalPrimaryAction}" class="primary-btn">${modalPrimaryBtnText}</button>
+      <button j-on:click="${closeModal}" class="secondary-btn">Cancel</button>
+    </div>
+  </Modal>
+  
+  <!-- JMF scripts will be injected here -->
+  <script src="app.js"></script>
+</body>
+</html> 

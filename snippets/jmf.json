@@ -1,0 +1,278 @@
+{
+  "Component Declaration": {
+    "prefix": "component",
+    "body": [
+      "component ${1:ComponentName} {",
+      "\t// Component properties",
+      "\tproperties {",
+      "\t\t${2:propertyName}: ${3:string} = ${4:\"defaultValue\"},",
+      "\t}",
+      "",
+      "\t// Component state",
+      "\tstate {",
+      "\t\t${5:stateName}: ${6:string} = ${7:\"initialValue\"},",
+      "\t}",
+      "",
+      "\t// Styling",
+      "\tstyles {",
+      "\t\twidth: ${8:100%};",
+      "\t\tpadding: ${9:16px};",
+      "\t}",
+      "",
+      "\t// Lifecycle effects",
+      "\teffect() {",
+      "\t\t// Code to run when component mounts",
+      "\t\t$0",
+      "\t\t",
+      "\t\treturn () => {",
+      "\t\t\t// Cleanup code",
+      "\t\t};",
+      "\t}",
+      "",
+      "\t// Methods",
+      "\tmethods {",
+      "\t\thandleAction() {",
+      "\t\t\t// Action handler",
+      "\t\t}",
+      "\t}",
+      "",
+      "\t// Render method",
+      "\trender {",
+      "\t\t<div className=\"${11:container}\">",
+      "\t\t\t<h1>{this.props.${2:propertyName}}</h1>",
+      "\t\t\t<p>{this.state.${5:stateName}}</p>",
+      "\t\t\t<button onClick={this.handleAction}>Click Me</button>",
+      "\t\t</div>",
+      "\t}",
+      "}"
+    ],
+    "description": "Creates a new JMF component"
+  },
+  "Properties Block": {
+    "prefix": "properties",
+    "body": [
+      "properties {",
+      "\t${1:propertyName}: ${2:string} = ${3:\"defaultValue\"},",
+      "\t${4:anotherProperty}: ${5:number} = ${6:0},$0",
+      "}"
+    ],
+    "description": "Creates a properties block for a JMF component"
+  },
+  "State Block": {
+    "prefix": "state",
+    "body": [
+      "state {",
+      "\t${1:stateName}: ${2:string} = ${3:\"initialValue\"},",
+      "\t${4:anotherState}: ${5:boolean} = ${6:false},$0",
+      "}"
+    ],
+    "description": "Creates a state block for a JMF component"
+  },
+  "Styles Block": {
+    "prefix": "styles",
+    "body": [
+      "styles {",
+      "\t${1:width}: ${2:100%};",
+      "\t${3:padding}: ${4:16px};",
+      "\t${5:backgroundColor}: ${6:#f5f5f5};$0",
+      "}"
+    ],
+    "description": "Creates a styles block for a JMF component"
+  },
+  "Effect Hook": {
+    "prefix": "effect",
+    "body": [
+      "effect([$1]) {",
+      "\t// Effect code",
+      "\t$0",
+      "\t",
+      "\treturn () => {",
+      "\t\t// Cleanup code",
+      "\t};",
+      "}"
+    ],
+    "description": "Creates an effect hook with dependencies"
+  },
+  "Methods Block": {
+    "prefix": "methods",
+    "body": [
+      "methods {",
+      "\t${1:methodName}(${2:param}) {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Creates a methods block for a JMF component"
+  },
+  "Render Block": {
+    "prefix": "render",
+    "body": [
+      "render {",
+      "\t<div className=\"${1:container}\">",
+      "\t\t$0",
+      "\t</div>",
+      "}"
+    ],
+    "description": "Creates a render block for a JMF component"
+  },
+  "Import Statement": {
+    "prefix": "import",
+    "body": [
+      "import { $1 } from \"$2\";"
+    ],
+    "description": "Creates an import statement"
+  },
+  "Constant Declaration": {
+    "prefix": "constant",
+    "body": [
+      "constant ${1:CONSTANT_NAME} = $2;"
+    ],
+    "description": "Creates a constant declaration"
+  },
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": [
+      "var ${1:variableName} = $2;"
+    ],
+    "description": "Creates a variable declaration"
+  },
+  "Conditional Rendering": {
+    "prefix": "if",
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "} else {",
+      "\t",
+      "}"
+    ],
+    "description": "Creates a conditional rendering block"
+  },
+  "Functional Component": {
+    "prefix": "function-component",
+    "body": [
+      "function ${1:FunctionName}(${2:props}) {",
+      "\t// Component logic",
+      "\tvar ${3:state} = useState(${4:initialValue});",
+      "",
+      "\t// Render",
+      "\treturn (",
+      "\t\t<div>",
+      "\t\t\t$0",
+      "\t\t</div>",
+      "\t);",
+      "}"
+    ],
+    "description": "Creates a functional component"
+  },
+  "JMF Document": {
+    "prefix": "jmf-document",
+    "body": [
+      "/*",
+      " * JMFramework Component File",
+      " * ${1:Description}",
+      " * Version: ${2:1.0.0}",
+      " * Author: ${3:Your Name}",
+      " * Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */",
+      "",
+      "// Import any dependencies",
+      "import { ${4:Component} } from \"${5:./components}\";",
+      "",
+      "/**",
+      " * ${6:ComponentName} component",
+      " * ${7:Component description}",
+      " */",
+      "component ${6:ComponentName} {",
+      "  // Properties with default values",
+      "  property color = ${8:#1E88E5};",
+      "  property fontSize = ${9:16px};",
+      "  property padding = ${10:12px 24px};",
+      "  property text = ${11:\"Button Text\"};",
+      "",
+      "  // Style block defines the visual appearance",
+      "  style {",
+      "    background-color: dynamic(color);",
+      "    font-size: dynamic(fontSize);",
+      "    padding: dynamic(padding);",
+      "    color: white;",
+      "    border-radius: 4px;",
+      "    border: none;",
+      "    cursor: pointer;",
+      "    transition: background-color 0.3s ease;",
+      "  }",
+      "",
+      "  // State-based styling",
+      "  hover {",
+      "    background-color: darken(dynamic(color), 10%);",
+      "  }",
+      "",
+      "  focus {",
+      "    outline: 2px solid rgba(0, 0, 0, 0.2);",
+      "  }",
+      "",
+      "  // Render block defines the HTML structure",
+      "  render {",
+      "    <button onClick={${12:handleClick}}>",
+      "      {text}",
+      "    </button>",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "Create a new JMF component with properties, styles, and rendering logic"
+  },
+  "JMF Component": {
+    "prefix": "component",
+    "body": [
+      "component ${1:ComponentName} {",
+      "  // Properties",
+      "  property ${2:propName} = ${3:defaultValue};",
+      "",
+      "  // Styles",
+      "  style {",
+      "    ${4:styles}",
+      "  }",
+      "",
+      "  // Render",
+      "  render {",
+      "    ${5:<div>{${2:propName}}</div>}",
+      "  }",
+      "}"
+    ],
+    "description": "Create a JMF component"
+  },
+  "JMF Property": {
+    "prefix": "property",
+    "body": [
+      "property ${1:name} = ${2:defaultValue};"
+    ],
+    "description": "Declare a component property"
+  },
+  "JMF Style Block": {
+    "prefix": "style",
+    "body": [
+      "style {",
+      "  ${1:styles}",
+      "}"
+    ],
+    "description": "Create a style block for a component"
+  },
+  "JMF Render Block": {
+    "prefix": "render",
+    "body": [
+      "render {",
+      "  ${1:<div></div>}",
+      "}"
+    ],
+    "description": "Create a render block for a component"
+  },
+  "JMF State": {
+    "prefix": "state",
+    "body": [
+      "${1:state} {",
+      "  ${2:styles}",
+      "}"
+    ],
+    "description": "Create a state-based style block (hover, focus, active, disabled)"
+  }
+} 

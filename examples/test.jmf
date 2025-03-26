@@ -1,0 +1,127 @@
+// JMF Test File
+// This is a sample JMF file to test syntax highlighting
+
+// Import statement
+import { Button, Card } from "@ui/components";
+import BaseStyles from "@ui/base-styles";
+
+// Variable declarations
+variable primary-color = #4285F4;
+variable secondary-color = #34A853;
+variable font-family = "Arial, sans-serif";
+variable border-radius = 4px;
+variable animation-duration = 0.3s;
+
+// Global styles
+global {
+  font-family: font-family;
+  line-height: 1.6;
+  color: #333;
+}
+
+// Component declaration
+component CustomButton {
+  // Properties
+  property text = "Button";
+  property color = primary-color;
+  property size = "medium";
+  property disabled = false;
+  property onClick = () => {};
+
+  // Styles
+  style {
+    display: inline-block;
+    padding: ${size === "small" ? "8px 16px" : size === "medium" ? "12px 24px" : "16px 32px"};
+    background-color: ${disabled ? "#ccc" : dynamic(color)};
+    color: white;
+    border: none;
+    border-radius: border-radius;
+    font-size: ${size === "small" ? "14px" : size === "medium" ? "16px" : "18px"};
+    cursor: ${disabled ? "not-allowed" : "pointer"};
+    transition: all ${animation-duration} ease;
+    text-align: center;
+  }
+
+  // State-based styling
+  hover {
+    background-color: ${disabled ? "#ccc" : darken(dynamic(color), 10%)};
+    transform: ${disabled ? "none" : "translateY(1px)"};
+  }
+
+  // Render block
+  render {
+    <button 
+      class="custom-button"
+      disabled=${disabled}
+      onclick=${onClick}
+    >
+      ${text}
+    </button>
+  }
+}
+
+// Use component
+div.action-area {
+  use CustomButton {
+    text: "Save Changes";
+    color: #32CD32;
+    size: "large";
+    onClick: handleSave;
+  }
+}
+
+// Reactive component
+reactive UserProfile {
+  property username = "";
+  property avatar = "";
+  property bio = "";
+  
+  state isEditing = false;
+  
+  // Effect hook
+  effect {
+    when: username;
+    run: () => {
+      console.log("Username changed to: " + username);
+    }
+  }
+  
+  // Methods
+  methods {
+    toggleEdit() {
+      this.isEditing = !this.isEditing;
+    }
+    
+    updateProfile(data) {
+      this.username = data.username || this.username;
+      this.bio = data.bio || this.bio;
+      this.isEditing = false;
+    }
+  }
+  
+  // Render
+  render {
+    <div class="user-profile">
+      <img src=${avatar} alt=${username} />
+      <h2>${username}</h2>
+      <p>${bio}</p>
+      
+      ${isEditing ? 
+        <form onsubmit=${(e) => {
+          e.preventDefault();
+          this.updateProfile({
+            username: e.target.username.value,
+            bio: e.target.bio.value
+          });
+        }}>
+          <input name="username" value=${username} />
+          <textarea name="bio">${bio}</textarea>
+          <button type="submit">Save</button>
+          <button type="button" onclick=${this.toggleEdit}>Cancel</button>
+        </form>
+        :
+        <button onclick=${this.toggleEdit}>Edit Profile</button>
+      }
+    </div>
+  }
+} 

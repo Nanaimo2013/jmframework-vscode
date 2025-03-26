@@ -1,0 +1,339 @@
+{
+  "Basic JMConfig Template": {
+    "prefix": "jmconfig",
+    "body": [
+      "// JMFramework Configuration File",
+      "",
+      "project {",
+      "\tname: \"${1:project-name}\",",
+      "\tversion: \"${2:1.0.0}\",",
+      "\tdescription: \"${3:Project description}\",",
+      "\tauthor: \"${4:Author Name}\",",
+      "\tlicense: \"${5:MIT}\"",
+      "}",
+      "",
+      "paths {",
+      "\tsource: \"${6:src}\",",
+      "\toutput: \"${7:dist}\",",
+      "\tassets: \"${8:assets}\",",
+      "\tcomponents: \"${9:components}\"",
+      "}",
+      "",
+      "build {",
+      "\tentryPoints: [\"${10:index.jmf}\"],",
+      "\toutputFormat: \"${11|standard,compressed,legacy|}\",",
+      "\tsourceMap: ${12:true},",
+      "\toptimizationLevel: ${13:1}",
+      "}",
+      "",
+      "server {",
+      "\tport: ${14:3000},",
+      "\thost: \"${15:localhost}\",",
+      "\tlivereload: ${16:true}",
+      "}",
+      "",
+      "extensions {",
+      "\tenabled: [",
+      "\t\t\"${17:core}\",",
+      "\t\t\"${18:web}\",",
+      "\t\t\"${19:router}\"",
+      "\t]",
+      "}",
+      "",
+      "plugins {",
+      "\t// Plugin configurations go here",
+      "\t$0",
+      "}"
+    ],
+    "description": "Basic JMFramework configuration template"
+  },
+  "Project Section": {
+    "prefix": "project",
+    "body": [
+      "project {",
+      "\tname: \"${1:project-name}\",",
+      "\tversion: \"${2:1.0.0}\",",
+      "\tdescription: \"${3:Project description}\",",
+      "\tauthor: \"${4:Author Name}\",",
+      "\tlicense: \"${5:MIT}\"",
+      "}"
+    ],
+    "description": "Project metadata section"
+  },
+  "Paths Section": {
+    "prefix": "paths",
+    "body": [
+      "paths {",
+      "\tsource: \"${1:src}\",",
+      "\toutput: \"${2:dist}\",",
+      "\tassets: \"${3:assets}\",",
+      "\tcomponents: \"${4:components}\",",
+      "\ttemplates: \"${5:templates}\",",
+      "\tmodules: \"${6:modules}\"",
+      "}"
+    ],
+    "description": "File and directory paths configuration"
+  },
+  "Build Section": {
+    "prefix": "build",
+    "body": [
+      "build {",
+      "\tentryPoints: [\"${1:index.jmf}\"],",
+      "\toutputFormat: \"${2|standard,compressed,legacy|}\",",
+      "\tsourceMap: ${3:true},",
+      "\toptimizationLevel: ${4:1},",
+      "\tminify: ${5:true},",
+      "\ttreeshake: ${6:true}",
+      "}"
+    ],
+    "description": "Build process configuration"
+  },
+  "Server Section": {
+    "prefix": "server",
+    "body": [
+      "server {",
+      "\tport: ${1:3000},",
+      "\thost: \"${2:localhost}\",",
+      "\tlivereload: ${3:true},",
+      "\topen: ${4:true},",
+      "\tproxy: {",
+      "\t\t\"${5:/api}\": \"${6:http://localhost:8000}\"",
+      "\t}",
+      "}"
+    ],
+    "description": "Development server configuration"
+  },
+  "Extensions Section": {
+    "prefix": "extensions",
+    "body": [
+      "extensions {",
+      "\tenabled: [",
+      "\t\t\"${1:core}\",",
+      "\t\t\"${2:web}\",",
+      "\t\t\"${3:router}\"",
+      "\t],",
+      "\tsettings: {",
+      "\t\t${4:extensionName}: {",
+      "\t\t\t${5:option}: ${6:value}",
+      "\t\t}",
+      "\t}",
+      "}"
+    ],
+    "description": "Framework extensions configuration"
+  },
+  "Plugins Section": {
+    "prefix": "plugins",
+    "body": [
+      "plugins {",
+      "\timageOptimizer: {",
+      "\t\tenabled: ${1:true},",
+      "\t\tquality: ${2:80}",
+      "\t},",
+      "\tstyleLint: {",
+      "\t\tenabled: ${3:true},",
+      "\t\tconfigFile: \"${4:.stylelintrc}\"",
+      "\t},",
+      "\tbundleAnalyzer: {",
+      "\t\tenabled: ${5:false}",
+      "\t}",
+      "}"
+    ],
+    "description": "Build plugins configuration"
+  },
+  "Testing Section": {
+    "prefix": "testing",
+    "body": [
+      "testing {",
+      "\tframework: \"${1|jest,mocha|}\",",
+      "\tcoverage: ${2:true},",
+      "\ttestMatch: [\"${3:**/*.test.js}\"],",
+      "\tsetupFiles: [\"${4:setup.js}\"]",
+      "}"
+    ],
+    "description": "Testing configuration"
+  },
+  "Deployment Section": {
+    "prefix": "deployment",
+    "body": [
+      "deployment {",
+      "\ttype: \"${1|static,serverless,docker|}\",",
+      "\ttarget: \"${2:production}\",",
+      "\toutputPath: \"${3:dist}\",",
+      "\tcleanOnDeploy: ${4:true},",
+      "\tpreBuildCommands: [",
+      "\t\t\"${5:npm run lint}\"",
+      "\t],",
+      "\tpostBuildCommands: [",
+      "\t\t\"${6:npm run test}\"",
+      "\t]",
+      "}"
+    ],
+    "description": "Deployment configuration"
+  },
+  "PWA Section": {
+    "prefix": "pwa",
+    "body": [
+      "pwa {",
+      "\tenabled: ${1:true},",
+      "\tmanifest: {",
+      "\t\tname: \"${2:App Name}\",",
+      "\t\tshortName: \"${3:App}\",",
+      "\t\tthemeColor: \"${4:#ffffff}\",",
+      "\t\tbackgroundColor: \"${5:#ffffff}\",",
+      "\t\tdisplay: \"${6|standalone,fullscreen,minimal-ui,browser|}\"",
+      "\t},",
+      "\tworkbox: {",
+      "\t\tglobPatterns: [\"${7:**/*.{js,css,html,png,jpg,svg}}\"],",
+      "\t\tstrategies: {",
+      "\t\t\timages: \"${8|cacheFirst,networkFirst,staleWhileRevalidate|}\",",
+      "\t\t\tscripts: \"${9:cacheFirst}\"",
+      "\t\t}",
+      "\t}",
+      "}"
+    ],
+    "description": "Progressive Web App configuration"
+  },
+  "Environment Variables Section": {
+    "prefix": "env",
+    "body": [
+      "environment {",
+      "\tdevelopment: {",
+      "\t\tAPI_URL: \"${1:http://localhost:8000/api}\",",
+      "\t\tDEBUG: ${2:true}",
+      "\t},",
+      "\tproduction: {",
+      "\t\tAPI_URL: \"${3:https://api.example.com}\",",
+      "\t\tDEBUG: ${4:false}",
+      "\t}",
+      "}"
+    ],
+    "description": "Environment variables configuration"
+  },
+  "JMConfig Document": {
+    "prefix": "jmconfig-document",
+    "body": [
+      "/*",
+      " * JMFramework Config File",
+      " * ${1:Project Name} Configuration",
+      " * Version: ${2:1.0.0}",
+      " * Author: ${3:Your Name}",
+      " * Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */",
+      "",
+      "/**",
+      " * Main project configuration",
+      " */",
+      "config Project {",
+      "  name: \"${1:Project Name}\";",
+      "  version: \"${2:1.0.0}\";",
+      "  description: \"${4:Project description}\";",
+      "  ",
+      "  // File paths configuration",
+      "  paths {",
+      "    source: \"${5:src}\";",
+      "    output: \"${6:dist}\";",
+      "    assets: \"${7:assets}\";",
+      "    components: \"${8:src/components}\";",
+      "    templates: \"${9:src/templates}\";",
+      "    modules: \"${10:src/modules}\";",
+      "    styles: \"${11:src/styles}\";",
+      "  }",
+      "  ",
+      "  // Build configuration",
+      "  build {",
+      "    minify: ${12:true};",
+      "    sourceMaps: ${13:true};",
+      "    bundle: ${14:true};",
+      "    target: \"${15:es2018}\";",
+      "    optimizationLevel: ${16:2};",
+      "  }",
+      "  ",
+      "  // Development server settings",
+      "  devServer {",
+      "    port: ${17:3000};",
+      "    host: \"${18:localhost}\";",
+      "    livereload: ${19:true};",
+      "    https: ${20:false};",
+      "  }",
+      "  ",
+      "  // Plugin configurations",
+      "  plugins {",
+      "    // Image processing plugin",
+      "    plugin ImageOptimizer {",
+      "      quality: ${21:85};",
+      "      formats: [\"jpg\", \"png\", \"webp\"];",
+      "      progressive: true;",
+      "    }",
+      "    ",
+      "    // CSS processing plugin",
+      "    plugin CSSProcessor {",
+      "      autoprefixer: true;",
+      "      minify: true;",
+      "      modules: ${22:false};",
+      "    }",
+      "  }",
+      "  ",
+      "  // Environment variables",
+      "  environment {",
+      "    production {",
+      "      API_URL: \"${23:https://api.example.com}\";",
+      "      DEBUG: false;",
+      "    }",
+      "    ",
+      "    development {",
+      "      API_URL: \"${24:http://localhost:8000}\";",
+      "      DEBUG: true;",
+      "    }",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "Create a new JMConfig document with complete project configuration"
+  },
+  "JMF Config": {
+    "prefix": "config",
+    "body": [
+      "config ${1:Name} {",
+      "  ${2:property}: ${3:value};",
+      "  ",
+      "  ${4:section} {",
+      "    ${5:nestedProperty}: ${6:nestedValue};",
+      "  }",
+      "}"
+    ],
+    "description": "Create a JMF configuration object"
+  },
+  "JMF Config Section": {
+    "prefix": "config-section",
+    "body": [
+      "${1:sectionName} {",
+      "  ${2:property}: ${3:value};",
+      "}"
+    ],
+    "description": "Create a section in a JMF configuration"
+  },
+  "JMF Plugin Config": {
+    "prefix": "plugin",
+    "body": [
+      "plugin ${1:PluginName} {",
+      "  ${2:option}: ${3:value};",
+      "}"
+    ],
+    "description": "Configure a plugin in a JMF configuration"
+  },
+  "JMF Environment Config": {
+    "prefix": "environment",
+    "body": [
+      "environment {",
+      "  ${1:production} {",
+      "    ${2:ENV_VAR}: ${3:value};",
+      "  }",
+      "  ",
+      "  ${4:development} {",
+      "    ${2:ENV_VAR}: ${5:devValue};",
+      "  }",
+      "}"
+    ],
+    "description": "Define environment-specific configuration"
+  }
+} 

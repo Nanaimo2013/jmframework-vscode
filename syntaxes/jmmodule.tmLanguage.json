@@ -1,0 +1,437 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "JMF Module",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#imports" },
+    { "include": "#module-declarations" },
+    { "include": "#exports" },
+    { "include": "#constants" },
+    { "include": "#variables" },
+    { "include": "#functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.jmmodule",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.jmmodule",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmmodule" }
+          }
+        },
+        {
+          "name": "comment.block.documentation.jmmodule",
+          "begin": "/\\*\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmmodule" }
+          }
+        }
+      ]
+    },
+    "imports": {
+      "patterns": [
+        {
+          "name": "keyword.control.import.jmmodule",
+          "match": "\\b(import|from)\\b"
+        },
+        {
+          "name": "meta.import.jmmodule",
+          "begin": "\\b(import)\\b",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.import.jmmodule" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            {
+              "name": "punctuation.definition.block.jmmodule",
+              "match": "[{}]"
+            },
+            {
+              "name": "keyword.control.from.jmmodule",
+              "match": "\\bfrom\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "module-declarations": {
+      "patterns": [
+        {
+          "name": "meta.module.declaration.jmmodule",
+          "begin": "\\b(module)\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.module.jmmodule" },
+            "2": { "name": "entity.name.type.module.jmmodule" },
+            "3": { "name": "punctuation.definition.block.begin.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#constants" },
+            { "include": "#variables" },
+            { "include": "#public-private-declarations" },
+            { "include": "#functions" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "public-private-declarations": {
+      "patterns": [
+        {
+          "name": "meta.public.declaration.jmmodule",
+          "match": "\\b(public)\\b",
+          "captures": {
+            "1": { "name": "storage.modifier.jmmodule" }
+          }
+        },
+        {
+          "name": "meta.private.declaration.jmmodule",
+          "match": "\\b(private)\\b",
+          "captures": {
+            "1": { "name": "storage.modifier.jmmodule" }
+          }
+        }
+      ]
+    },
+    "exports": {
+      "patterns": [
+        {
+          "name": "meta.export.jmmodule",
+          "begin": "\\b(export)\\b",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.export.jmmodule" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmmodule" }
+          },
+          "patterns": [
+            {
+              "name": "keyword.control.default.jmmodule",
+              "match": "\\bdefault\\b"
+            },
+            { "include": "#variables" },
+            { "include": "#functions" }
+          ]
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "meta.constant.declaration.jmmodule",
+          "begin": "\\b(constant)\\s+([A-Z_$][A-Za-z0-9_$]*)\\s*(=)",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.constant.jmmodule" },
+            "2": { "name": "variable.other.constant.jmmodule" },
+            "3": { "name": "keyword.operator.assignment.jmmodule" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "meta.variable.declaration.jmmodule",
+          "begin": "\\b(var|let|const|state)\\s+([a-zA-Z_$][A-Za-z0-9_$]*)\\s*(=|:)",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.jmmodule" },
+            "2": { "name": "variable.other.jmmodule" },
+            "3": { "name": "keyword.operator.assignment.jmmodule" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "meta.function.declaration.jmmodule",
+          "begin": "\\b(?:(public|private)\\s+)?(async\\s+)?(function)\\s+([a-zA-Z_$][A-Za-z0-9_$]*)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "storage.modifier.jmmodule" },
+            "2": { "name": "storage.modifier.async.jmmodule" },
+            "3": { "name": "storage.type.function.jmmodule" },
+            "4": { "name": "entity.name.function.jmmodule" },
+            "5": { "name": "punctuation.definition.parameters.begin.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.parameters.end.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#function-parameters" }
+          ]
+        },
+        {
+          "name": "meta.function.declaration.jmmodule",
+          "begin": "\\b(?:(public|private)\\s+)?(async\\s+)?([a-zA-Z_$][A-Za-z0-9_$]*)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "storage.modifier.jmmodule" },
+            "2": { "name": "storage.modifier.async.jmmodule" },
+            "3": { "name": "entity.name.function.jmmodule" },
+            "4": { "name": "punctuation.definition.parameters.begin.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.parameters.end.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#function-parameters" }
+          ]
+        }
+      ]
+    },
+    "function-parameters": {
+      "patterns": [
+        {
+          "name": "variable.parameter.jmmodule",
+          "match": "\\b[a-zA-Z_$][A-Za-z0-9_$]*\\b"
+        },
+        {
+          "name": "punctuation.separator.parameter.jmmodule",
+          "match": ","
+        },
+        {
+          "name": "meta.parameter.optional.jmmodule",
+          "match": "\\b([a-zA-Z_$][A-Za-z0-9_$]*)(?:\\s*=\\s*([^,)]+))",
+          "captures": {
+            "1": { "name": "variable.parameter.jmmodule" },
+            "2": { "name": "constant.other.jmmodule" }
+          }
+        }
+      ]
+    },
+    "arrays": {
+      "patterns": [
+        {
+          "name": "meta.array.literal.jmmodule",
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.square.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.square.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "patterns": [
+        {
+          "name": "meta.object.literal.jmmodule",
+          "begin": "{",
+          "end": "}",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.curly.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.curly.jmmodule" }
+          },
+          "patterns": [
+            {
+              "name": "meta.object.member.jmmodule",
+              "match": "(?:(['\"])([^'\"]+)(['\"])|([a-zA-Z_$][A-Za-z0-9_$]*))\\s*(:)",
+              "captures": {
+                "1": { "name": "string.quoted.jmmodule" },
+                "2": { "name": "meta.object-literal.key.jmmodule" },
+                "3": { "name": "string.quoted.jmmodule" },
+                "4": { "name": "meta.object-literal.key.jmmodule" },
+                "5": { "name": "punctuation.separator.key-value.jmmodule" }
+              }
+            },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "expressions": {
+      "patterns": [
+        { "include": "#keywords" },
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#function-calls" },
+        { "include": "#arrays" },
+        { "include": "#objects" },
+        {
+          "name": "variable.other.jmmodule",
+          "match": "\\b[a-zA-Z_$][A-Za-z0-9_$]*\\b"
+        },
+        {
+          "name": "keyword.operator.arithmetic.jmmodule",
+          "match": "\\+|\\-|\\*|\\/|%|\\+\\+|\\-\\-"
+        },
+        {
+          "name": "keyword.operator.assignment.jmmodule",
+          "match": "=|\\+=|\\-=|\\*=|\\/=|%="
+        },
+        {
+          "name": "keyword.operator.logical.jmmodule",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.comparison.jmmodule",
+          "match": "==|!=|===|!==|>|<|>=|<="
+        },
+        {
+          "name": "keyword.operator.ternary.jmmodule",
+          "match": "\\?|:"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.jmmodule",
+          "match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|yield|await|async)\\b"
+        },
+        {
+          "name": "keyword.operator.jmmodule",
+          "match": "\\b(typeof|instanceof|new|delete|void|in|of)\\b"
+        },
+        {
+          "name": "constant.language.jmmodule",
+          "match": "\\b(true|false|null|undefined|NaN|Infinity)\\b"
+        }
+      ]
+    },
+    "function-calls": {
+      "patterns": [
+        {
+          "name": "meta.function-call.jmmodule",
+          "begin": "\\b([a-zA-Z_$][A-Za-z0-9_$]*)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "entity.name.function.jmmodule" },
+            "2": { "name": "punctuation.definition.parameters.begin.jmmodule" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.parameters.end.jmmodule" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.jmmodule",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmmodule",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.jmmodule",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmmodule",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.template.jmmodule",
+          "begin": "`",
+          "end": "`",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmmodule",
+              "match": "\\\\."
+            },
+            {
+              "name": "meta.template.expression.jmmodule",
+              "begin": "\\${",
+              "end": "}",
+              "beginCaptures": {
+                "0": { "name": "punctuation.definition.template-expression.begin.jmmodule" }
+              },
+              "endCaptures": {
+                "0": { "name": "punctuation.definition.template-expression.end.jmmodule" }
+              },
+              "patterns": [
+                { "include": "#expressions" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.jmmodule",
+          "match": "\\b([0-9]+\\.?[0-9]*)\\b"
+        },
+        {
+          "name": "constant.numeric.hex.jmmodule",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.jmmodule",
+          "match": "\\b0[bB][01]+\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.jmmodule"
+} 

@@ -1,0 +1,170 @@
+/* 
+  JMF CSS Test File
+  This is a sample JMCSS file to test syntax highlighting
+*/
+
+// Import other style files
+@import url("variables.jmcss");
+@import url("mixins.jmcss");
+
+// Variable declarations
+variable primary-color = #4285F4;
+variable secondary-color = #34A853;
+variable font-family = "Arial, sans-serif";
+variable spacing = {
+  small: 8px,
+  medium: 16px,
+  large: 24px
+};
+variable breakpoints = {
+  mobile: 576px,
+  tablet: 768px,
+  desktop: 1200px
+};
+
+// Mixins
+mixin flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mixin respond-to($breakpoint) {
+  @media (min-width: ${typeof breakpoint === "string" ? breakpoints[breakpoint] : breakpoint}) {
+    @content;
+  }
+}
+
+mixin button-variant($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+  
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+  
+  &:active {
+    background-color: darken($bg-color, 15%);
+  }
+}
+
+// Global styles
+:root {
+  --primary: ${primary-color};
+  --secondary: ${secondary-color};
+  --font-family: ${font-family};
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+// Component styles
+.button {
+  display: inline-block;
+  padding: ${spacing.medium};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  text-align: center;
+  font-weight: 500;
+  
+  // Variants
+  &.primary {
+    @include button-variant(primary-color);
+  }
+  
+  &.secondary {
+    @include button-variant(secondary-color);
+  }
+  
+  &.outline {
+    background-color: transparent;
+    border: 1px solid currentColor;
+    color: primary-color;
+    
+    &:hover {
+      background-color: rgba(${primary-color}, 0.1);
+    }
+  }
+  
+  // Sizes
+  &.small {
+    padding: ${spacing.small};
+    font-size: 0.875rem;
+  }
+  
+  &.large {
+    padding: ${spacing.large};
+    font-size: 1.125rem;
+  }
+  
+  // States
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Layout styles
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: ${spacing.medium};
+  
+  @include respond-to("tablet") {
+    padding: ${spacing.large};
+  }
+}
+
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -${spacing.small};
+  
+  > * {
+    flex: 1 1 100%;
+    padding: ${spacing.small};
+    
+    @include respond-to("tablet") {
+      flex: 1 1 50%;
+    }
+    
+    @include respond-to("desktop") {
+      flex: 1 1 33.333%;
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+// Media queries
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: ${lighten(primary-color, 10%)};
+  }
+  
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+} 

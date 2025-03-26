@@ -1,0 +1,414 @@
+// JMF Module Test File
+// This is a sample JMModule file to test syntax highlighting
+
+// Import statements
+import { useState, useEffect } from "@jmf/core";
+import { ApiClient } from "@utils/api-client.jmf";
+import { debounce } from "@utils/functions.jmf";
+
+/**
+ * Data module for user management
+ * Provides functions and hooks for user data, authentication, and preferences.
+ */
+module UserModule {
+  // Module constants
+  constant USER_ROLES = {
+    ADMIN: "admin",
+    EDITOR: "editor",
+    VIEWER: "viewer",
+    GUEST: "guest"
+  };
+  
+  constant AUTH_EVENTS = {
+    LOGIN: "auth:login",
+    LOGOUT: "auth:logout",
+    SESSION_EXPIRED: "auth:session_expired",
+    PROFILE_UPDATED: "auth:profile_updated"
+  };
+  
+  constant DEFAULT_PREFERENCES = {
+    theme: "light",
+    notifications: true,
+    language: "en",
+    timeFormat: "12h",
+    currency: "USD"
+  };
+  
+  // Private module state
+  private state = {
+    currentUser: null,
+    isAuthenticated: false,
+    isLoading: false,
+    error: null,
+    preferences: { ...DEFAULT_PREFERENCES }
+  };
+  
+  private apiClient = new ApiClient("/api/users");
+  
+  // Event handlers
+  private eventHandlers = {
+    onUserUpdated: [],
+    onAuthStateChanged: [],
+    onPreferencesChanged: []
+  };
+  
+  // Private methods
+  private function emitEvent(eventName, data) {
+    if (eventHandlers[eventName]) {
+      eventHandlers[eventName].forEach(handler => handler(data));
+    }
+  }
+  
+  private function validateUser(user) {
+    const errors = [];
+    
+    if (!user.email || !user.email.includes("@")) {
+      errors.push("Invalid email address");
+    }
+    
+    if (!user.username || user.username.length < 3) {
+      errors.push("Username must be at least 3 characters");
+    }
+    
+    if (user.password && user.password.length < 8) {
+      errors.push("Password must be at least 8 characters");
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+  
+  private function normalizeUser(userData) {
+    return {
+      id: userData.id,
+      username: userData.username,
+      email: userData.email,
+      displayName: userData.display_name || userData.username,
+      avatar: userData.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.username)}`,
+      role: userData.role || USER_ROLES.GUEST,
+      createdAt: new Date(userData.created_at),
+      updatedAt: new Date(userData.updated_at)
+    };
+  }
+  
+  private function persistUserToLocalStorage(user) {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }
+  
+  private function loadUserFromLocalStorage() {
+    const userData = localStorage.getItem("user");
+    return userData ? JSON.parse(userData) : null;
+  }
+  
+  private function persistAuthToken(token) {
+    if (token) {
+      localStorage.setItem("auth_token", token);
+    } else {
+      localStorage.removeItem("auth_token");
+    }
+  }
+  
+  private function loadAuthToken() {
+    return localStorage.getItem("auth_token");
+  }
+  
+  private async function refreshUserData() {
+    if (!state.isAuthenticated) return;
+    
+    state.isLoading = true;
+    
+    try {
+      const userData = await apiClient.get(`/profile`);
+      state.currentUser = normalizeUser(userData);
+      emitEvent("onUserUpdated", state.currentUser);
+    } catch (error) {
+      console.error("Failed to refresh user data:", error);
+      state.error = error.message;
+    } finally {
+      state.isLoading = false;
+    }
+  }
+  
+  // Public methods
+  public async function login(email, password) {
+    state.isLoading = true;
+    state.error = null;
+    
+    try {
+      const response = await apiClient.post("/login", { email, password });
+      
+      if (response.token) {
+        persistAuthToken(response.token);
+        state.currentUser = normalizeUser(response.user);
+        state.isAuthenticated = true;
+        state.preferences = { ...DEFAULT_PREFERENCES, ...response.preferences };
+        
+        persistUserToLocalStorage(state.currentUser);
+        emitEvent("onAuthStateChanged", { isAuthenticated: true, user: state.currentUser });
+        
+        return {
+          success: true,
+          user: state.currentUser
+        };
+      } else {
+        throw new Error("Invalid response from server");
+      }
+    } catch (error) {
+      state.error = error.message;
+      return {
+        success: false,
+        error: error.message
+      };
+    } finally {
+      state.isLoading = false;
+    }
+  }
+  
+  public async function register(userData) {
+    const validation = validateUser(userData);
+    
+    if (!validation.isValid) {
+      return {
+        success: false,
+        errors: validation.errors
+      };
+    }
+    
+    state.isLoading = true;
+    state.error = null;
+    
+    try {
+      const response = await apiClient.post("/register", userData);
+      
+      if (response.token) {
+        persistAuthToken(response.token);
+        state.currentUser = normalizeUser(response.user);
+        state.isAuthenticated = true;
+        state.preferences = { ...DEFAULT_PREFERENCES };
+        
+        persistUserToLocalStorage(state.currentUser);
+        emitEvent("onAuthStateChanged", { isAuthenticated: true, user: state.currentUser });
+        
+        return {
+          success: true,
+          user: state.currentUser
+        };
+      } else {
+        throw new Error("Invalid response from server");
+      }
+    } catch (error) {
+      state.error = error.message;
+      return {
+        success: false,
+        error: error.message
+      };
+    } finally {
+      state.isLoading = false;
+    }
+  }
+  
+  public async function logout() {
+    state.isLoading = true;
+    
+    try {
+      await apiClient.post("/logout");
+    } catch (error) {
+      // Continue logout process even if the API call fails
+      console.error("Error during logout:", error);
+    } finally {
+      state.currentUser = null;
+      state.isAuthenticated = false;
+      state.preferences = { ...DEFAULT_PREFERENCES };
+      
+      persistAuthToken(null);
+      persistUserToLocalStorage(null);
+      
+      emitEvent("onAuthStateChanged", { isAuthenticated: false, user: null });
+      
+      state.isLoading = false;
+    }
+    
+    return { success: true };
+  }
+  
+  public async function updateProfile(profileData) {
+    if (!state.isAuthenticated) {
+      return {
+        success: false,
+        error: "User is not authenticated"
+      };
+    }
+    
+    state.isLoading = true;
+    state.error = null;
+    
+    try {
+      const response = await apiClient.put(`/profile`, profileData);
+      state.currentUser = normalizeUser(response);
+      
+      persistUserToLocalStorage(state.currentUser);
+      emitEvent("onUserUpdated", state.currentUser);
+      
+      return {
+        success: true,
+        user: state.currentUser
+      };
+    } catch (error) {
+      state.error = error.message;
+      return {
+        success: false,
+        error: error.message
+      };
+    } finally {
+      state.isLoading = false;
+    }
+  }
+  
+  public async function updatePreferences(preferencesData) {
+    if (!state.isAuthenticated) {
+      return {
+        success: false,
+        error: "User is not authenticated"
+      };
+    }
+    
+    state.isLoading = true;
+    state.error = null;
+    
+    try {
+      const response = await apiClient.put(`/preferences`, preferencesData);
+      state.preferences = { ...state.preferences, ...response };
+      
+      emitEvent("onPreferencesChanged", state.preferences);
+      
+      return {
+        success: true,
+        preferences: state.preferences
+      };
+    } catch (error) {
+      state.error = error.message;
+      return {
+        success: false,
+        error: error.message
+      };
+    } finally {
+      state.isLoading = false;
+    }
+  }
+  
+  public function addListener(event, handler) {
+    if (eventHandlers[event]) {
+      eventHandlers[event].push(handler);
+      
+      return () => {
+        eventHandlers[event] = eventHandlers[event].filter(h => h !== handler);
+      };
+    }
+    
+    return () => {};
+  }
+  
+  // React-style hooks
+  public function useUser() {
+    const [user, setUser] = useState(state.currentUser);
+    const [loading, setLoading] = useState(state.isLoading);
+    
+    useEffect(() => {
+      const unsubscribe = addListener("onUserUpdated", (updatedUser) => {
+        setUser(updatedUser);
+      });
+      
+      // Initial loading
+      if (state.isAuthenticated && !state.currentUser) {
+        refreshUserData();
+      }
+      
+      return unsubscribe;
+    }, []);
+    
+    useEffect(() => {
+      setLoading(state.isLoading);
+    }, [state.isLoading]);
+    
+    return {
+      user,
+      isLoading: loading,
+      error: state.error
+    };
+  }
+  
+  public function useAuth() {
+    const [isAuthenticated, setIsAuthenticated] = useState(state.isAuthenticated);
+    const [user, setUser] = useState(state.currentUser);
+    
+    useEffect(() => {
+      const unsubscribe = addListener("onAuthStateChanged", (authState) => {
+        setIsAuthenticated(authState.isAuthenticated);
+        setUser(authState.user);
+      });
+      
+      return unsubscribe;
+    }, []);
+    
+    return {
+      isAuthenticated,
+      user,
+      login,
+      logout,
+      register
+    };
+  }
+  
+  public function usePreferences() {
+    const [preferences, setPreferences] = useState(state.preferences);
+    
+    useEffect(() => {
+      const unsubscribe = addListener("onPreferencesChanged", (newPreferences) => {
+        setPreferences(newPreferences);
+      });
+      
+      return unsubscribe;
+    }, []);
+    
+    const updatePreference = debounce(async (key, value) => {
+      await updatePreferences({ [key]: value });
+    }, 500);
+    
+    return {
+      preferences,
+      updatePreference,
+      updateAllPreferences: updatePreferences
+    };
+  }
+  
+  // Initialize module
+  public function initialize() {
+    const token = loadAuthToken();
+    const savedUser = loadUserFromLocalStorage();
+    
+    if (token && savedUser) {
+      state.isAuthenticated = true;
+      state.currentUser = savedUser;
+      
+      // Set the token in the API client
+      apiClient.setAuthToken(token);
+      
+      // Trigger refreshing user data
+      refreshUserData();
+    }
+    
+    return {
+      isAuthenticated: state.isAuthenticated,
+      user: state.currentUser
+    };
+  }
+}
+
+// Export module
+export default UserModule; 

@@ -1,0 +1,581 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "JMFramework",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#imports" },
+    { "include": "#variables" },
+    { "include": "#constants" },
+    { "include": "#keywords" },
+    { "include": "#storage" },
+    { "include": "#strings" },
+    { "include": "#components" },
+    { "include": "#properties" },
+    { "include": "#functions" },
+    { "include": "#states" },
+    { "include": "#effects" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.jmf",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.jmf",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmf" }
+          }
+        },
+        {
+          "name": "comment.block.documentation.jmf",
+          "begin": "/\\*\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmf" }
+          }
+        }
+      ]
+    },
+    "imports": {
+      "patterns": [
+        {
+          "name": "keyword.control.import.jmf",
+          "match": "\\b(import|from)\\b"
+        },
+        {
+          "name": "meta.import.jmf",
+          "begin": "\\b(import)\\b",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.import.jmf" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmf" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            {
+              "name": "punctuation.definition.block.jmf",
+              "match": "[{}]"
+            },
+            {
+              "name": "keyword.control.from.jmf",
+              "match": "\\bfrom\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "meta.declaration.variable.jmf",
+          "begin": "\\b(var|let|const)\\s+([a-zA-Z_$][\\w$]*)\\s*(=)",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.jmf" },
+            "2": { "name": "variable.other.jmf" },
+            "3": { "name": "keyword.operator.assignment.jmf" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmf" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "meta.declaration.constant.jmf",
+          "begin": "\\b(constant)\\s+([A-Z_$][\\w$]*)\\s*(=)",
+          "end": "(;)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.constant.jmf" },
+            "2": { "name": "variable.other.constant.jmf" },
+            "3": { "name": "keyword.operator.assignment.jmf" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.statement.jmf" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.jmf",
+          "match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|yield|await|async)\\b"
+        },
+        {
+          "name": "keyword.operator.jmf",
+          "match": "\\b(typeof|instanceof|new|delete|void|in|of)\\b"
+        },
+        {
+          "name": "constant.language.jmf",
+          "match": "\\b(true|false|null|undefined|NaN|Infinity)\\b"
+        }
+      ]
+    },
+    "storage": {
+      "patterns": [
+        {
+          "name": "storage.type.jmf",
+          "match": "\\b(var|let|const|function|class|extends|implements|interface|type|enum|namespace|module|export|default|static|public|private|protected|readonly|abstract|get|set)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.jmf",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmf",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.jmf",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmf",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.template.jmf",
+          "begin": "`",
+          "end": "`",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmf",
+              "match": "\\\\."
+            },
+            {
+              "name": "meta.template.expression.jmf",
+              "begin": "\\${",
+              "end": "}",
+              "beginCaptures": {
+                "0": { "name": "punctuation.definition.template-expression.begin.jmf" }
+              },
+              "endCaptures": {
+                "0": { "name": "punctuation.definition.template-expression.end.jmf" }
+              },
+              "patterns": [
+                { "include": "#expressions" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "components": {
+      "patterns": [
+        {
+          "name": "meta.component.declaration.jmf",
+          "begin": "\\b(component)\\s+([A-Z][a-zA-Z0-9_$]*)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.component.jmf" },
+            "2": { "name": "entity.name.type.component.jmf" },
+            "3": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            { "include": "#properties" },
+            { "include": "#styles" },
+            { "include": "#states" },
+            { "include": "#effects" },
+            { "include": "#methods" },
+            { "include": "#render" },
+            { "include": "$self" }
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "patterns": [
+        {
+          "name": "meta.property.declaration.jmf",
+          "begin": "\\b(properties)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.property.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.property.jmf",
+              "match": "\\s*([a-zA-Z_$][\\w$]*)\\s*:\\s*([a-zA-Z_$][\\w$.]*)(?:\\s*=\\s*([^;,]+))?\\s*([;,])",
+              "captures": {
+                "1": { "name": "variable.other.property.jmf" },
+                "2": { "name": "support.type.primitive.jmf" },
+                "3": { "name": "constant.other.jmf" },
+                "4": { "name": "punctuation.separator.jmf" }
+              }
+            },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "styles": {
+      "patterns": [
+        {
+          "name": "meta.styles.declaration.jmf",
+          "begin": "\\b(styles)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.styles.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.property.style.jmf",
+              "match": "\\s*([a-zA-Z-]+)\\s*:\\s*([^;]+)\\s*(;)",
+              "captures": {
+                "1": { "name": "support.type.property-name.css" },
+                "2": { "name": "support.constant.property-value.css" },
+                "3": { "name": "punctuation.terminator.rule.css" }
+              }
+            },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "states": {
+      "patterns": [
+        {
+          "name": "meta.state.declaration.jmf",
+          "begin": "\\b(state)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.state.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.state.property.jmf",
+              "match": "\\s*([a-zA-Z_$][\\w$]*)\\s*:\\s*([^;,]+)\\s*([;,])",
+              "captures": {
+                "1": { "name": "variable.other.state.jmf" },
+                "2": { "name": "constant.other.jmf" },
+                "3": { "name": "punctuation.separator.jmf" }
+              }
+            },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "effects": {
+      "patterns": [
+        {
+          "name": "meta.effect.declaration.jmf",
+          "begin": "\\b(effect)\\s*\\(\\s*\\)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.effect.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            { "include": "$self" }
+          ]
+        },
+        {
+          "name": "meta.effect.declaration.with-deps.jmf",
+          "begin": "\\b(effect)\\s*\\(\\s*\\[",
+          "end": "\\]\\s*\\)\\s*({)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.effect.jmf" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "variable.other.effect.dependency.jmf",
+              "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+            },
+            {
+              "name": "punctuation.separator.comma.jmf",
+              "match": ","
+            }
+          ]
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "meta.function.declaration.jmf",
+          "begin": "\\b(function)\\s+([a-zA-Z_$][\\w$]*)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.function.jmf" },
+            "2": { "name": "entity.name.function.jmf" },
+            "3": { "name": "punctuation.definition.parameters.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.parameters.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "variable.parameter.jmf",
+              "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+            },
+            {
+              "name": "punctuation.separator.parameter.jmf",
+              "match": ","
+            }
+          ]
+        },
+        {
+          "name": "meta.method.declaration.jmf",
+          "begin": "\\b([a-zA-Z_$][\\w$]*)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "entity.name.function.jmf" },
+            "2": { "name": "punctuation.definition.parameters.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.parameters.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "variable.parameter.jmf",
+              "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+            },
+            {
+              "name": "punctuation.separator.parameter.jmf",
+              "match": ","
+            }
+          ]
+        }
+      ]
+    },
+    "methods": {
+      "patterns": [
+        {
+          "name": "meta.methods.declaration.jmf",
+          "begin": "\\b(methods)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.methods.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.method.jmf",
+              "begin": "\\b([a-zA-Z_$][\\w$]*)\\s*(\\()",
+              "end": "\\)\\s*({)",
+              "beginCaptures": {
+                "1": { "name": "entity.name.function.method.jmf" },
+                "2": { "name": "punctuation.definition.parameters.begin.jmf" }
+              },
+              "endCaptures": {
+                "1": { "name": "punctuation.definition.block.begin.jmf" }
+              },
+              "patterns": [
+                {
+                  "name": "variable.parameter.jmf",
+                  "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+                },
+                {
+                  "name": "punctuation.separator.parameter.jmf",
+                  "match": ","
+                }
+              ]
+            },
+            { "include": "$self" }
+          ]
+        }
+      ]
+    },
+    "render": {
+      "patterns": [
+        {
+          "name": "meta.render.declaration.jmf",
+          "begin": "\\b(render)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "storage.type.render.jmf" },
+            "2": { "name": "punctuation.definition.block.begin.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.block.end.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "entity.name.tag.jmf",
+              "match": "</?([a-zA-Z][a-zA-Z0-9:-]*)"
+            },
+            {
+              "name": "entity.other.attribute-name.jmf",
+              "match": "\\b([a-zA-Z:_][a-zA-Z0-9:_.-]*)\\b"
+            },
+            { "include": "#strings" },
+            { "include": "#expressions" },
+            { "include": "$self" }
+          ]
+        }
+      ]
+    },
+    "arrays": {
+      "patterns": [
+        {
+          "name": "meta.array.literal.jmf",
+          "begin": "\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.square.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.square.jmf" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "patterns": [
+        {
+          "name": "meta.object.literal.jmf",
+          "begin": "{",
+          "end": "}",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.curly.jmf" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.curly.jmf" }
+          },
+          "patterns": [
+            {
+              "name": "meta.object.member.jmf",
+              "match": "(?:(['\"])([^'\"]+)(['\"])|([a-zA-Z_$][\\w$]*))\\s*(:)",
+              "captures": {
+                "1": { "name": "string.quoted.jmf" },
+                "2": { "name": "meta.object-literal.key.jmf" },
+                "3": { "name": "string.quoted.jmf" },
+                "4": { "name": "meta.object-literal.key.jmf" },
+                "5": { "name": "punctuation.separator.key-value.jmf" }
+              }
+            },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#expressions" }
+          ]
+        }
+      ]
+    },
+    "expressions": {
+      "patterns": [
+        { "include": "#keywords" },
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#functions" },
+        { "include": "#arrays" },
+        { "include": "#objects" },
+        {
+          "name": "variable.other.jmf",
+          "match": "\\b[a-zA-Z_$][\\w$]*\\b"
+        },
+        {
+          "name": "keyword.operator.arithmetic.jmf",
+          "match": "\\+|\\-|\\*|\\/|%|\\+\\+|\\-\\-"
+        },
+        {
+          "name": "keyword.operator.assignment.jmf",
+          "match": "=|\\+=|\\-=|\\*=|\\/=|%="
+        },
+        {
+          "name": "keyword.operator.logical.jmf",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.comparison.jmf",
+          "match": "==|!=|===|!==|>|<|>=|<="
+        },
+        {
+          "name": "keyword.operator.ternary.jmf",
+          "match": "\\?|:"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.jmf",
+          "match": "\\b([0-9]+\\.?[0-9]*)\\b"
+        },
+        {
+          "name": "constant.numeric.hex.jmf",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.jmf",
+          "match": "\\b0[bB][01]+\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.jmf"
+} 

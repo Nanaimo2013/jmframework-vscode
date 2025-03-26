@@ -1,0 +1,159 @@
+// JMF Config Test File
+// This is a sample JMConfig file to test syntax highlighting
+
+// Project configuration
+config JMFProject {
+  // Basic information
+  name: "JMFramework Example Project";
+  version: "1.0.0";
+  description: "A sample project built with JMFramework";
+  author: "JMFramework Team";
+  license: "MIT";
+  
+  // Paths configuration
+  paths: {
+    root: "./";
+    source: "src";
+    output: "dist";
+    assets: "assets";
+    public: "public";
+    components: "src/components";
+    templates: "src/templates";
+    styles: "src/styles";
+    modules: "src/modules";
+  };
+  
+  // Build configuration
+  build: {
+    entry: "src/app.jmf";
+    outDir: "dist";
+    
+    output: {
+      css: true;
+      html: true;
+      js: true;
+      sourceMaps: true;
+      minify: true;
+    };
+    
+    optimization: {
+      level: 3;  // 0: none, 1: basic, 2: normal, 3: aggressive
+      treeShaking: true;
+      deadCodeElimination: true;
+      concatenateModules: true;
+      constantFolding: true;
+    };
+    
+    environments: {
+      development: {
+        minify: false;
+        sourceMaps: true;
+        optimization: {
+          level: 1;
+        };
+      };
+      
+      production: {
+        minify: true;
+        sourceMaps: false;
+        optimization: {
+          level: 3;
+        };
+      };
+    };
+  };
+  
+  // Dev server configuration
+  devServer: {
+    port: 3000;
+    host: "localhost";
+    open: true;
+    hot: true;
+    historyApiFallback: true;
+    
+    proxy: [
+      {
+        context: ["/api"];
+        target: "http://localhost:5000";
+        secure: false;
+        changeOrigin: true;
+      }
+    ];
+  };
+  
+  // Extensions configuration
+  extensions: {
+    enabled: ["jmf", "jmcss", "jmhtml", "jmconfig", "jmtemplate", "jmmodule"];
+    alias: {
+      "@components": "src/components";
+      "@templates": "src/templates";
+      "@styles": "src/styles";
+      "@modules": "src/modules";
+      "@assets": "assets";
+    };
+  };
+  
+  // Plugins configuration
+  plugins: {
+    plugin ImageOptimizer {
+      enabled: true;
+      quality: 85;
+      formats: ["jpg", "png", "webp"];
+      outputPath: "assets/images";
+    };
+    
+    plugin StyleLint {
+      enabled: true;
+      configFile: ".stylelintrc";
+      fix: true;
+    };
+    
+    plugin Bundler {
+      enabled: true;
+      target: "es2018";
+      format: "esm";
+      external: ["react", "react-dom"];
+    };
+    
+    plugin PWA {
+      enabled: true;
+      manifest: {
+        name: "JMF PWA";
+        short_name: "JMF";
+        theme_color: "#4285F4";
+        background_color: "#ffffff";
+        display: "standalone";
+        orientation: "portrait";
+        scope: "/";
+        start_url: "/";
+        icons: [
+          {
+            src: "assets/icons/icon-72x72.png";
+            sizes: "72x72";
+            type: "image/png";
+          },
+          {
+            src: "assets/icons/icon-128x128.png";
+            sizes: "128x128";
+            type: "image/png";
+          },
+          {
+            src: "assets/icons/icon-144x144.png";
+            sizes: "144x144";
+            type: "image/png";
+          },
+          {
+            src: "assets/icons/icon-512x512.png";
+            sizes: "512x512";
+            type: "image/png";
+          }
+        ];
+      };
+      workbox: {
+        swSrc: "src/service-worker.js";
+        swDest: "dist/service-worker.js";
+        precacheManifestFilename: "precache-manifest.[manifestHash].js";
+      };
+    };
+  };
+} 

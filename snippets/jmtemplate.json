@@ -1,0 +1,321 @@
+{
+  "Basic Template Structure": {
+    "prefix": "template",
+    "body": [
+      "template ${1:TemplateName} {",
+      "\t// Template parameters",
+      "\tparameters {",
+      "\t\t${2:paramName}: ${3:string} = ${4:\"defaultValue\"},",
+      "\t}",
+      "\t",
+      "\t<div class=\"${5:template-container}\">",
+      "\t\t<h2>{{${2:paramName}}}</h2>",
+      "\t\t$0",
+      "\t</div>",
+      "}"
+    ],
+    "description": "Basic template structure"
+  },
+  "Parameters Block": {
+    "prefix": "parameters",
+    "body": [
+      "parameters {",
+      "\t${1:paramName}: ${2:string} = ${3:\"defaultValue\"},",
+      "\t${4:anotherParam}: ${5:number} = ${6:0},$0",
+      "}"
+    ],
+    "description": "Parameters block for a template"
+  },
+  "Template Expression": {
+    "prefix": "exp",
+    "body": [
+      "{{${1:expression}}}"
+    ],
+    "description": "Template expression"
+  },
+  "Conditional Block": {
+    "prefix": "if",
+    "body": [
+      "{{#if ${1:condition}}}",
+      "\t$0",
+      "{{/if}}"
+    ],
+    "description": "Conditional block"
+  },
+  "Conditional with Else": {
+    "prefix": "ifelse",
+    "body": [
+      "{{#if ${1:condition}}}",
+      "\t$2",
+      "{{else}}",
+      "\t$0",
+      "{{/if}}"
+    ],
+    "description": "Conditional block with else"
+  },
+  "Each Loop": {
+    "prefix": "each",
+    "body": [
+      "{{#each ${1:items}}}",
+      "\t$0",
+      "{{/each}}"
+    ],
+    "description": "Loop through items"
+  },
+  "Each Loop with Index": {
+    "prefix": "eachi",
+    "body": [
+      "{{#each ${1:items} as |${2:item} ${3:index}|}}",
+      "\t$0",
+      "{{/each}}"
+    ],
+    "description": "Loop through items with index"
+  },
+  "With Block": {
+    "prefix": "with",
+    "body": [
+      "{{#with ${1:object}}}",
+      "\t$0",
+      "{{/with}}"
+    ],
+    "description": "Create a context block"
+  },
+  "Unless Block": {
+    "prefix": "unless",
+    "body": [
+      "{{#unless ${1:condition}}}",
+      "\t$0",
+      "{{/unless}}"
+    ],
+    "description": "Inverse conditional block"
+  },
+  "HTML Section": {
+    "prefix": "section",
+    "body": [
+      "<section class=\"${1:section-name}\">",
+      "\t<div class=\"${2:container}\">",
+      "\t\t<h2>{{${3:title}}}</h2>",
+      "\t\t$0",
+      "\t</div>",
+      "</section>"
+    ],
+    "description": "HTML section with container"
+  },
+  "HTML Form with Template Variables": {
+    "prefix": "form",
+    "body": [
+      "<form class=\"${1:form-name}\" {{#if ${2:onSubmit}}}onsubmit=\"{{${2:onSubmit}}}\"{{/if}}>",
+      "\t<div class=\"form-group\">",
+      "\t\t<label for=\"${3:fieldId}\">{{${4:labelText}}}</label>",
+      "\t\t<input type=\"${5|text,email,password,number|}\" id=\"${3:fieldId}\" name=\"${6:fieldName}}\" ",
+      "\t\t       {{#if ${7:value}}}value=\"{{${7:value}}}\"{{/if}} ",
+      "\t\t       {{#if ${8:placeholder}}}placeholder=\"{{${8:placeholder}}}\"{{/if}}>",
+      "\t</div>",
+      "\t<button type=\"submit\">{{${9:submitText}}}</button>",
+      "</form>"
+    ],
+    "description": "HTML form with template variables"
+  },
+  "Include Partial": {
+    "prefix": "partial",
+    "body": [
+      "{{> ${1:partialName} ${2:param}=${3:value}}}"
+    ],
+    "description": "Include a partial template"
+  },
+  "Helper Block": {
+    "prefix": "helper",
+    "body": [
+      "{{#${1:helperName} ${2:param}}}",
+      "\t$0",
+      "{{/${1:helperName}}}"
+    ],
+    "description": "Custom helper block"
+  },
+  "Comment Block": {
+    "prefix": "comment",
+    "body": [
+      "{{!-- ${1:comment text} --}}"
+    ],
+    "description": "Template comment"
+  },
+  "List Group": {
+    "prefix": "list",
+    "body": [
+      "<ul class=\"${1:list-group}\">",
+      "\t{{#each ${2:items}}}",
+      "\t<li class=\"${3:list-item}\">",
+      "\t\t{{${4:this}}}",
+      "\t</li>",
+      "\t{{/each}}",
+      "</ul>"
+    ],
+    "description": "List group with iteration"
+  },
+  "Card Component": {
+    "prefix": "card",
+    "body": [
+      "<div class=\"card\">",
+      "\t{{#if ${1:title}}}",
+      "\t<div class=\"card-header\">",
+      "\t\t<h3>{{${1:title}}}</h3>",
+      "\t</div>",
+      "\t{{/if}}",
+      "\t<div class=\"card-body\">",
+      "\t\t$0",
+      "\t</div>",
+      "\t{{#if ${2:footer}}}",
+      "\t<div class=\"card-footer\">",
+      "\t\t{{${2:footer}}}",
+      "\t</div>",
+      "\t{{/if}}",
+      "</div>"
+    ],
+    "description": "Card component with conditional sections"
+  },
+  "Navigation": {
+    "prefix": "nav",
+    "body": [
+      "<nav class=\"${1:navbar}\">",
+      "\t<div class=\"${2:brand}\">{{${3:brandName}}}</div>",
+      "\t<ul class=\"${4:nav-items}\">",
+      "\t\t{{#each ${5:navItems}}}",
+      "\t\t<li class=\"${6:nav-item} {{#if this.active}}active{{/if}}\">",
+      "\t\t\t<a href=\"{{this.url}}\">{{this.label}}</a>",
+      "\t\t</li>",
+      "\t\t{{/each}}",
+      "\t</ul>",
+      "</nav>"
+    ],
+    "description": "Navigation component"
+  },
+  "JMTemplate Document": {
+    "prefix": "jmtemplate-document",
+    "body": [
+      "/*",
+      " * JMFramework Template File",
+      " * ${1:Description}",
+      " * Version: ${2:1.0.0}",
+      " * Author: ${3:Your Name}",
+      " * Created: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */",
+      "",
+      "/**",
+      " * ${4:TemplateName} template",
+      " * ${5:Template description}",
+      " */",
+      "template ${4:TemplateName} {",
+      "  // Template parameters",
+      "  param title = \"${6:Default Title}\";",
+      "  param description = \"${7:Default description text}\";",
+      "  param showHeader = ${8:true};",
+      "  param items = ${9:[]};",
+      "",
+      "  // Content blocks",
+      "  block header {",
+      "    <header class=\"template-header\">",
+      "      <h1>{title}</h1>",
+      "      <p>{description}</p>",
+      "    </header>",
+      "  }",
+      "",
+      "  block content {",
+      "    <div class=\"template-content\">",
+      "      <slot name=\"content\">",
+      "        <p>Default content if no content is provided</p>",
+      "      </slot>",
+      "    </div>",
+      "  }",
+      "",
+      "  block footer {",
+      "    <footer class=\"template-footer\">",
+      "      <p>© {new Date().getFullYear()} - {title}</p>",
+      "    </footer>",
+      "  }",
+      "",
+      "  // Main template structure",
+      "  <div class=\"template-container\">",
+      "    <j-if condition={showHeader}>",
+      "      {render header}",
+      "    </j-if>",
+      "",
+      "    {render content}",
+      "",
+      "    <j-if condition={items.length > 0}>",
+      "      <div class=\"template-items\">",
+      "        <h2>Items</h2>",
+      "        <ul>",
+      "          <j-for item in items>",
+      "            <li>{item.name}</li>",
+      "          </j-for>",
+      "        </ul>",
+      "      </div>",
+      "    </j-if>",
+      "",
+      "    {render footer}",
+      "  </div>",
+      "}",
+      ""
+    ],
+    "description": "Create a new JMTemplate document with parameters, blocks, and conditionals"
+  },
+  "JMF Template": {
+    "prefix": "template",
+    "body": [
+      "template ${1:TemplateName} {",
+      "  // Parameters",
+      "  param ${2:paramName} = ${3:defaultValue};",
+      "",
+      "  // Template structure",
+      "  ${4:<div class=\"template\">",
+      "    <h1>{${2:paramName}}</h1>",
+      "    <slot name=\"content\" />",
+      "  </div>}",
+      "}"
+    ],
+    "description": "Create a JMF template"
+  },
+  "JMF Param": {
+    "prefix": "param",
+    "body": [
+      "param ${1:name} = ${2:defaultValue};"
+    ],
+    "description": "Declare a template parameter"
+  },
+  "JMF Block": {
+    "prefix": "block",
+    "body": [
+      "block ${1:blockName} {",
+      "  ${2:<div>Block content</div>}",
+      "}"
+    ],
+    "description": "Define a template block"
+  },
+  "JMF Slot": {
+    "prefix": "slot",
+    "body": [
+      "<slot name=\"${1:slotName}\">",
+      "  ${2:<!-- Default content -->}",
+      "</slot>"
+    ],
+    "description": "Create a slot for content injection"
+  },
+  "JMF If": {
+    "prefix": "j-if",
+    "body": [
+      "<j-if condition={${1:condition}}>",
+      "  ${2:content}",
+      "</j-if>"
+    ],
+    "description": "Conditional rendering in templates"
+  },
+  "JMF For": {
+    "prefix": "j-for",
+    "body": [
+      "<j-for ${1:item} in ${2:items}>",
+      "  ${3:<div>{${1:item}.name}</div>}",
+      "</j-for>"
+    ],
+    "description": "Loop over items in templates"
+  }
+} 

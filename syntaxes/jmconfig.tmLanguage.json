@@ -1,0 +1,232 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "JMF Config",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#sections" },
+    { "include": "#properties" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.jmconfig",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.jmconfig",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmconfig" }
+          }
+        }
+      ]
+    },
+    "sections": {
+      "patterns": [
+        {
+          "name": "meta.section.jmconfig",
+          "begin": "\\b(project|paths|build|server|plugins|extensions)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "entity.name.section.jmconfig" },
+            "2": { "name": "punctuation.definition.section.begin.jmconfig" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.section.end.jmconfig" }
+          },
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#properties" },
+            { "include": "#nested-sections" }
+          ]
+        }
+      ]
+    },
+    "nested-sections": {
+      "patterns": [
+        {
+          "name": "meta.section.nested.jmconfig",
+          "begin": "\\b([a-zA-Z][a-zA-Z0-9]*)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "entity.name.section.nested.jmconfig" },
+            "2": { "name": "punctuation.definition.section.begin.jmconfig" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.section.end.jmconfig" }
+          },
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#properties" },
+            { "include": "#nested-sections" }
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "patterns": [
+        {
+          "name": "meta.property.jmconfig",
+          "begin": "\\b([a-zA-Z][a-zA-Z0-9]*)\\s*:",
+          "end": "(?:,|;|$)",
+          "beginCaptures": {
+            "1": { "name": "variable.other.property.jmconfig" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.separator.jmconfig" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#arrays" },
+            { "include": "#objects" },
+            { "include": "#boolean" },
+            { "include": "#null" }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.jmconfig",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmconfig",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.jmconfig",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmconfig",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.jmconfig",
+          "match": "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?"
+        }
+      ]
+    },
+    "arrays": {
+      "name": "meta.array.jmconfig",
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.array.begin.jmconfig" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.array.end.jmconfig" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#arrays" },
+        { "include": "#objects" },
+        { "include": "#boolean" },
+        { "include": "#null" },
+        {
+          "name": "punctuation.separator.array.jmconfig",
+          "match": ","
+        }
+      ]
+    },
+    "objects": {
+      "name": "meta.object.jmconfig",
+      "begin": "{",
+      "end": "}",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.object.begin.jmconfig" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.object.end.jmconfig" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "name": "meta.object.key.jmconfig",
+          "begin": "\"",
+          "end": "\"\\s*:",
+          "beginCaptures": {
+            "0": { "name": "string.quoted.double.jmconfig" }
+          },
+          "endCaptures": {
+            "0": { "name": "string.quoted.double.jmconfig" }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmconfig",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "meta.object.key.jmconfig",
+          "begin": "'",
+          "end": "'\\s*:",
+          "beginCaptures": {
+            "0": { "name": "string.quoted.single.jmconfig" }
+          },
+          "endCaptures": {
+            "0": { "name": "string.quoted.single.jmconfig" }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.jmconfig",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "meta.object.key.jmconfig",
+          "match": "\\b([a-zA-Z][a-zA-Z0-9]*)\\s*:",
+          "captures": {
+            "1": { "name": "variable.other.property.jmconfig" }
+          }
+        },
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#arrays" },
+        { "include": "#objects" },
+        { "include": "#boolean" },
+        { "include": "#null" },
+        {
+          "name": "punctuation.separator.object.jmconfig",
+          "match": ","
+        }
+      ]
+    },
+    "boolean": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.jmconfig",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    },
+    "null": {
+      "patterns": [
+        {
+          "name": "constant.language.null.jmconfig",
+          "match": "\\bnull\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.jmconfig"
+} 

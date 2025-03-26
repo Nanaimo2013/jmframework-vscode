@@ -1,0 +1,353 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "JMF CSS",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#imports" },
+    { "include": "#variables" },
+    { "include": "#mixins" },
+    { "include": "#selectors" },
+    { "include": "#rules" },
+    { "include": "#media-queries" },
+    { "include": "#animations" },
+    { "include": "#functions" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.jmcss",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.jmcss",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jmcss" }
+          }
+        }
+      ]
+    },
+    "imports": {
+      "patterns": [
+        {
+          "name": "meta.import.jmcss",
+          "begin": "(@import)\\s+",
+          "end": ";",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.at-rule.import.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.rule.jmcss" }
+          },
+          "patterns": [
+            { "include": "#strings" }
+          ]
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "meta.variable.declaration.jmcss",
+          "match": "(@var)\\s+([a-zA-Z-]+)\\s*:\\s*([^;]+)\\s*(;)",
+          "captures": {
+            "1": { "name": "keyword.control.at-rule.var.jmcss" },
+            "2": { "name": "variable.other.jmcss" },
+            "3": { "name": "string.unquoted.jmcss" },
+            "4": { "name": "punctuation.terminator.rule.jmcss" }
+          }
+        }
+      ]
+    },
+    "mixins": {
+      "patterns": [
+        {
+          "name": "meta.mixin.declaration.jmcss",
+          "begin": "(@mixin)\\s+([a-zA-Z-]+)(?:\\(([^)]*)\\))?\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.at-rule.mixin.jmcss" },
+            "2": { "name": "entity.name.function.mixin.jmcss" },
+            "3": { "name": "variable.parameter.jmcss" },
+            "4": { "name": "punctuation.section.mixin.begin.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.section.mixin.end.jmcss" }
+          },
+          "patterns": [
+            { "include": "#rules" },
+            { "include": "#selectors" },
+            { "include": "#variables" },
+            { "include": "#comments" }
+          ]
+        },
+        {
+          "name": "meta.mixin.usage.jmcss",
+          "match": "(@include)\\s+([a-zA-Z-]+)(?:\\(([^)]*)\\))?\\s*(;)",
+          "captures": {
+            "1": { "name": "keyword.control.at-rule.include.jmcss" },
+            "2": { "name": "entity.name.function.mixin.jmcss" },
+            "3": { "name": "variable.parameter.jmcss" },
+            "4": { "name": "punctuation.terminator.rule.jmcss" }
+          }
+        }
+      ]
+    },
+    "selectors": {
+      "patterns": [
+        {
+          "name": "meta.selector.jmcss",
+          "begin": "(?<=^|\\{|\\})\\s*([\\w\\d.#:*][^{]*?)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "patterns": [{ "include": "#selector-innards" }]},
+            "2": { "name": "punctuation.section.property-list.begin.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.section.property-list.end.jmcss" }
+          },
+          "patterns": [
+            { "include": "#rules" },
+            { "include": "#selectors" },
+            { "include": "#variables" },
+            { "include": "#mixins" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "selector-innards": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.jmcss",
+          "match": "\\b[a-zA-Z0-9_-]+\\b"
+        },
+        {
+          "name": "entity.other.attribute-name.class.jmcss",
+          "match": "\\.[a-zA-Z0-9_-]+"
+        },
+        {
+          "name": "entity.other.attribute-name.id.jmcss",
+          "match": "#[a-zA-Z0-9_-]+"
+        },
+        {
+          "name": "entity.other.attribute-name.pseudo-class.jmcss",
+          "match": ":[a-zA-Z0-9_-]+"
+        },
+        {
+          "name": "entity.other.attribute-name.pseudo-element.jmcss",
+          "match": "::[a-zA-Z0-9_-]+"
+        },
+        {
+          "name": "keyword.operator.combinator.jmcss",
+          "match": "\\s[+>~]\\s"
+        }
+      ]
+    },
+    "rules": {
+      "patterns": [
+        {
+          "name": "meta.property-name.jmcss",
+          "match": "\\b([a-zA-Z-]+)\\s*(:)",
+          "captures": {
+            "1": { "name": "support.type.property-name.jmcss" },
+            "2": { "name": "punctuation.separator.key-value.jmcss" }
+          }
+        },
+        {
+          "name": "meta.property-value.jmcss",
+          "begin": "(?<=:)\\s*",
+          "end": "\\s*(;|(?=}))",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.property-value.begin.jmcss" }
+          },
+          "endCaptures": {
+            "1": { "name": "punctuation.terminator.rule.jmcss" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#colors" },
+            { "include": "#functions-call" },
+            { "include": "#variables-usage" },
+            { "include": "#value-keywords" }
+          ]
+        }
+      ]
+    },
+    "media-queries": {
+      "patterns": [
+        {
+          "name": "meta.at-rule.media.jmcss",
+          "begin": "(@media)\\s+([^{]+)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.at-rule.media.jmcss" },
+            "2": { "name": "support.constant.media.jmcss" },
+            "3": { "name": "punctuation.section.media.begin.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.section.media.end.jmcss" }
+          },
+          "patterns": [
+            { "include": "#selectors" },
+            { "include": "#rules" },
+            { "include": "#variables" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "animations": {
+      "patterns": [
+        {
+          "name": "meta.at-rule.keyframes.jmcss",
+          "begin": "(@keyframes)\\s+([a-zA-Z0-9_-]+)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.at-rule.keyframes.jmcss" },
+            "2": { "name": "entity.name.function.keyframe.jmcss" },
+            "3": { "name": "punctuation.section.keyframes.begin.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.section.keyframes.end.jmcss" }
+          },
+          "patterns": [
+            {
+              "name": "meta.keyframe.declaration.jmcss",
+              "begin": "(from|to|\\d+%)\\s*({)",
+              "end": "}",
+              "beginCaptures": {
+                "1": { "name": "entity.other.attribute-name.keyframe.jmcss" },
+                "2": { "name": "punctuation.section.keyframe.begin.jmcss" }
+              },
+              "endCaptures": {
+                "0": { "name": "punctuation.section.keyframe.end.jmcss" }
+              },
+              "patterns": [
+                { "include": "#rules" }
+              ]
+            },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "meta.function.declaration.jmcss",
+          "begin": "(@function)\\s+([a-zA-Z-]+)\\s*\\(([^)]*)\\)\\s*({)",
+          "end": "}",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.at-rule.function.jmcss" },
+            "2": { "name": "entity.name.function.jmcss" },
+            "3": { "name": "variable.parameter.jmcss" },
+            "4": { "name": "punctuation.section.function.begin.jmcss" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.section.function.end.jmcss" }
+          },
+          "patterns": [
+            { "include": "#variables" },
+            { "include": "#rules" },
+            { "include": "#comments" },
+            {
+              "name": "keyword.control.return.jmcss",
+              "match": "@return\\s+[^;]+;"
+            }
+          ]
+        }
+      ]
+    },
+    "functions-call": {
+      "patterns": [
+        {
+          "name": "meta.function.call.jmcss",
+          "begin": "([a-zA-Z-]+)\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "support.function.jmcss" }
+          },
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#colors" },
+            { "include": "#variables-usage" },
+            {
+              "name": "punctuation.separator.arguments.jmcss",
+              "match": ","
+            }
+          ]
+        }
+      ]
+    },
+    "variables-usage": {
+      "patterns": [
+        {
+          "name": "variable.other.jmcss",
+          "match": "var\\([a-zA-Z0-9-]+\\)"
+        },
+        {
+          "name": "variable.other.jmcss",
+          "match": "\\$[a-zA-Z0-9-]+"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.jmcss",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "name": "constant.character.escape.jmcss", "match": "\\\\." }
+          ]
+        },
+        {
+          "name": "string.quoted.double.jmcss",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.jmcss", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.jmcss",
+          "match": "\\b([0-9]+(\\.[0-9]+)?(px|em|rem|%|vh|vw|vmin|vmax|ex|ch|mm|cm|in|pt|pc|fr|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?)\\b"
+        }
+      ]
+    },
+    "colors": {
+      "patterns": [
+        {
+          "name": "constant.other.color.rgb-value.hex.jmcss",
+          "match": "#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b"
+        },
+        {
+          "name": "constant.other.color.rgb-value.jmcss",
+          "match": "\\b(rgb|rgba|hsl|hsla)\\([^)]*\\)"
+        },
+        {
+          "name": "support.constant.color.w3c-standard-color-name.jmcss",
+          "match": "\\b(aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgrey|darkgreen|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|grey|green|greenyellow|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgrey|lightgreen|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen)\\b"
+        }
+      ]
+    },
+    "value-keywords": {
+      "patterns": [
+        {
+          "name": "support.constant.property-value.jmcss",
+          "match": "\\b(absolute|all|all-petite-caps|all-small-caps|allow-end|alternate|alternate-reverse|always|auto|backwards|balance|baseline|block|bold|bolder|border-box|both|bottom|break-all|break-word|capitalize|center|circle|clip|collapse|column|column-reverse|contain|content-box|cover|currentColor|cursive|dashed|dotted|double|ease|ease-in|ease-in-out|ease-out|end|fantasy|fill|fixed|flex|flex-end|flex-start|forwards|grid|groove|hidden|inherit|initial|inline|inline-block|inset|inside|italic|justify|large|larger|left|lighter|line-through|linear|lowercase|ltr|medium|middle|monospace|no-repeat|none|normal|nowrap|oblique|outset|outside|overline|pointer|preserve-3d|relative|repeat|repeat-x|repeat-y|reverse|ridge|right|round|row|row-reverse|rtl|sans-serif|scroll|serif|small|small-caps|smaller|solid|space-around|space-between|space-evenly|start|static|step-end|step-start|stretch|top|transparent|unset|uppercase|visible|wrap|wrap-reverse|xx-large|xx-small|x-large|x-small)\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.jmcss"
+} 
